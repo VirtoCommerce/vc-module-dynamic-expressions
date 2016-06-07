@@ -51,12 +51,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="VirtoCommerce.Platform.Core, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VirtoCommerce.Platform.Core.2.10.2\lib\net451\VirtoCommerce.Platform.Core.dll</HintPath>
+      <HintPath>..\packages\VirtoCommerce.Platform.Core.2.10.3\lib\net451\VirtoCommerce.Platform.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlockConditionAndOr.cs" />
+    <Compile Include="Properties\CommonAssemblyInfo.cs" />
     <Compile Include="Common\Conditions\Browse\ConditionLanguageIs.cs" />
     <Compile Include="Common\Conditions\Browse\ConditionAgeIs.cs" />
     <Compile Include="Common\Conditions\Browse\ConditionUrlIs.cs" />
