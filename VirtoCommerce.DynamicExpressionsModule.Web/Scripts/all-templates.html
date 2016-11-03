@@ -211,9 +211,9 @@
     <div class="form-input __mini">
         <input money required ng-model="element1.amount">
     </div>off shipping
-    <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.shippingMethod ? element1.$shippingMethodName : 'select shipping'}}</a>
+    <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.shippingMethod ? element1.shippingMethod : 'select shipping'}}</a>
     <ul class="menu __context" role="menu" id="pshp_menu{{$index}}" ng-controller="virtoCommerce.dynamicExpressions.shippingMethodRewardController">
-        <li class="menu-item" ng-click='element1.shippingMethod=x.id;element1.$shippingMethodName=x.name' ng-repeat="x in shippingMethods">{{x.name}}</li>
+        <li class="menu-item" ng-click='element1.shippingMethod=x.id?x.code:x.id' ng-repeat="x in shippingMethods">{{x.code}}</li>
     </ul>
 </script>
 <script type="text/ng-template" id="expression-RewardShippingGetOfRelShippingMethod.html">
@@ -221,9 +221,9 @@
     <div class="form-input __mini __number">
         <input smart-float num-type="float" required ng-model="element1.amount">
     </div>% off shipping
-    <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.shippingMethod ? element1.$shippingMethodName : 'select shipping'}}</a>
+    <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.shippingMethod ? element1.shippingMethod : 'select shipping'}}</a>
     <ul class="menu __context" role="menu" id="pshp_menu{{$index}}" ng-controller="virtoCommerce.dynamicExpressions.shippingMethodRewardController">
-        <li class="menu-item" ng-click='element1.shippingMethod=x.id;element1.$shippingMethodName=x.name' ng-repeat="x in shippingMethods">{{x.name}}</li>
+        <li class="menu-item" ng-click='element1.shippingMethod=x.id?x.code:x.id' ng-repeat="x in shippingMethods">{{x.code}}</li>
     </ul>
 </script>
 

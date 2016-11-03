@@ -232,19 +232,13 @@ angular.module(moduleName, [])
 }])
 .controller('virtoCommerce.dynamicExpressions.shippingMethodRewardController', ['$scope', function ($scope) {
     function initialize(storeId) {
-        // var storeId = $scope.blade.currentEntity.store;
         if (storeId) {
             $scope.stores.$promise.then(function () {
                 var found = _.findWhere($scope.stores, { id: storeId });
                 $scope.shippingMethods = found.shippingMethods;
-
-                if ($scope.element1.shippingMethod && $scope.shippingMethods) {
-                    var found = _.findWhere($scope.shippingMethods, { id: $scope.element1.shippingMethod });
-                    $scope.element1.$shippingMethodName = found.name;
-                }
             });
         } else {
-            $scope.shippingMethods = [{ name: 'Select Store first!' }];
+            $scope.shippingMethods = [{ code: 'Select Store first!' }];
         }
     }
 
