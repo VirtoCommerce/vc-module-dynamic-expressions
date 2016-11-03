@@ -13,7 +13,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 	
 		#region IConditionExpression Members
 		/// <summary>
-		/// ((PromotionEvaluationContext)x).IsItemInCategory(SelectedCategoryId, ExcludingCategoryIds, ExcludingProductIds)
+		/// ((PromotionEvaluationContext)x).IsItemInCategory(CategoryId, ExcludingCategoryIds, ExcludingProductIds)
 		/// </summary>
 		/// <returns></returns>
 		public linq.Expression<Func<IEvaluationContext, bool>> GetConditionExpression()

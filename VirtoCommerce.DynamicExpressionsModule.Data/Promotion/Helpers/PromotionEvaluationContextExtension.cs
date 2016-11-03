@@ -27,7 +27,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 			return retVal;
 		}
 
-		public static decimal GetCartItemsOfProductQuantity(this PromotionEvaluationContext context, string productId)
+		public static int GetCartItemsOfProductQuantity(this PromotionEvaluationContext context, string productId)
 		{
 			var retVal = context.CartPromoEntries.InProducts(new[] { productId })
 								  .Sum(x => x.Quantity);

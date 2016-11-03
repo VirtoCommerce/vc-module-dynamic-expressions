@@ -85,7 +85,7 @@
     <div class="form-input __mini __number">
         <input smart-float num-type="integer" required ng-model="element1.numItem">
     </div>items of category
-    <a class="__link" ng-click="openCategorySelectWizard(element)">{{element.categoryName?element.categoryName: 'select category' }}</a>
+    <a class="__link" ng-click="openCategorySelectWizard(element1)">{{element1.categoryName?element1.categoryName: 'select category' }}</a>
     are in shopping cart excluding
     <ul class="menu __context" role="menu" id="exactly_menu{{element1.id}}">
         <li class="menu-item" ng-click='element1.exactly=true;'>exactly</li>
@@ -97,7 +97,7 @@
     <div class="form-input __mini __number">
         <input smart-float num-type="integer" required ng-model="element1.numItem">
     </div>items of entry
-    <a class="__link" ng-click="openItemSelectWizard(element)">{{element.productId?element.productName: 'select entry' }}</a>
+    <a class="__link" ng-click="openItemSelectWizard(element1)">{{element1.productId?element1.productName: 'select entry' }}</a>
     are in shopping cart
     <ul class="menu __context" role="menu" id="exactly_menu{{element1.id}}">
         <li class="menu-item" ng-click='element1.exactly=true;'>exactly</li>
@@ -211,9 +211,9 @@
     <div class="form-input __mini">
         <input money required ng-model="element1.amount">
     </div>off shipping
-    <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.shippingMethod ? element1.shippingMethod : 'select shipping'}}</a>
-    <ul class="menu __context" role="menu" id="pshp_menu{{$index}}">
-        <li class="menu-item" ng-click='element1.shippingMethod=x.id' ng-repeat="x in shippingMethods">{{x.name}}</li>
+    <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.shippingMethod ? element1.$shippingMethodName : 'select shipping'}}</a>
+    <ul class="menu __context" role="menu" id="pshp_menu{{$index}}" ng-controller="virtoCommerce.dynamicExpressions.shippingMethodRewardController">
+        <li class="menu-item" ng-click='element1.shippingMethod=x.id;element1.$shippingMethodName=x.name' ng-repeat="x in shippingMethods">{{x.name}}</li>
     </ul>
 </script>
 <script type="text/ng-template" id="expression-RewardShippingGetOfRelShippingMethod.html">
@@ -221,19 +221,19 @@
     <div class="form-input __mini __number">
         <input smart-float num-type="float" required ng-model="element1.amount">
     </div>% off shipping
-    <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.shippingMethod ? element1.shippingMethod : 'select shipping'}}</a>
-    <ul class="menu __context" role="menu" id="pshp_menu{{$index}}">
-        <li class="menu-item" ng-click='element1.shippingMethod=x.id' ng-repeat="x in shippingMethods">{{x.name}}</li>
+    <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.shippingMethod ? element1.$shippingMethodName : 'select shipping'}}</a>
+    <ul class="menu __context" role="menu" id="pshp_menu{{$index}}" ng-controller="virtoCommerce.dynamicExpressions.shippingMethodRewardController">
+        <li class="menu-item" ng-click='element1.shippingMethod=x.id;element1.$shippingMethodName=x.name' ng-repeat="x in shippingMethods">{{x.name}}</li>
     </ul>
 </script>
 
 <script type="text/ng-template" id="expression-ExcludingCategoryCondition.html">
     items of category
-    <a class="__link" ng-click="openCategorySelectWizard(element)">{{element.categoryName?element.categoryName: 'select category' }}</a>
+    <a class="__link" ng-click="openCategorySelectWizard(element)">{{element.categoryId?element.categoryName || element.categoryId: 'select category' }}</a>
 </script>
 <script type="text/ng-template" id="expression-ExcludingProductCondition.html">
     items of entry
-    <a class="__link" ng-click="openItemSelectWizard(element)">{{element.productName?element.productName: 'select entry' }}</a>
+    <a class="__link" ng-click="openItemSelectWizard(element)">{{element.productId?element.productName || element.productId: 'select entry' }}</a>
 </script>
 
 <!--DYNAMIC CONTENT PUBLISHING-->
@@ -256,9 +256,9 @@
     </ul>
 </script>
 <script type="text/ng-template" id="expression-TagsContainsCondition.html">
-    Tags contains 
+    Tags contains
     <div class="form-input">
-        <input required class="form-control" ng-model="element1.tag"  placeholder="Enter tag"/>
+        <input required class="form-control" ng-model="element1.tag" placeholder="Enter tag" />
     </div>
 </script>
 
