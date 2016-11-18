@@ -40,7 +40,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Web
 
         private static ConditionExpressionTree GetPricingDynamicExpression()
         {
-            var conditions = new DynamicExpression[] { new ConditionGeoTimeZone(), new ConditionGeoZipCode(), new ConditionStoreSearchedPhrase(), new ConditionAgeIs(), new ConditionGenderIs(), new ConditionGeoCity(), new ConditionGeoCountry(), new ConditionGeoState(), new ConditionLanguageIs(), new TagsContainsCondition() }.ToList();
+            var conditions = new DynamicExpression[] { new ConditionGeoTimeZone(), new ConditionGeoZipCode(), new ConditionStoreSearchedPhrase(), new ConditionAgeIs(), new ConditionGenderIs(), new ConditionGeoCity(), new ConditionGeoCountry(), new ConditionGeoState(), new ConditionLanguageIs(), new UserGroupsContainsCondition() }.ToList();
             var rootBlock = new BlockPricingCondition { AvailableChildren = conditions };
             var retVal = new ConditionExpressionTree()
             {
@@ -67,7 +67,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Web
                 AvailableChildren = new DynamicExpression[]
                 {
                     new ConditionIsEveryone(), new ConditionIsFirstTimeBuyer(),
-                    new ConditionIsRegisteredUser()
+                    new ConditionIsRegisteredUser(), new UserGroupsContainsCondition()
                 }.ToList()
             };
 
@@ -94,7 +94,8 @@ namespace VirtoCommerce.DynamicExpressionsModule.Web
                 {
                     new RewardCartGetOfAbsSubtotal(), new RewardItemGetFreeNumItemOfProduct(), new RewardItemGetOfAbs(),
                     new RewardItemGetOfAbsForNum(), new RewardItemGetOfRel(), new RewardItemGetOfRelForNum(),
-                    new RewardItemGiftNumItem(), new RewardShippingGetOfAbsShippingMethod(), new RewardShippingGetOfRelShippingMethod()
+                    new RewardItemGiftNumItem(), new RewardShippingGetOfAbsShippingMethod(), new RewardShippingGetOfRelShippingMethod(), new RewardPaymentGetOfAbs(),
+                    new RewardPaymentGetOfRel()
                 }.ToList()
             };
 

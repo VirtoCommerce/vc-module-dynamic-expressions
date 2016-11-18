@@ -35,8 +35,8 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -46,12 +46,12 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="VirtoCommerce.Domain, Version=2.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VirtoCommerce.Domain.2.11.0\lib\net451\VirtoCommerce.Domain.dll</HintPath>
+    <Reference Include="VirtoCommerce.Domain, Version=2.18.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VirtoCommerce.Domain.2.19.0-rc2\lib\net451\VirtoCommerce.Domain.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="VirtoCommerce.Platform.Core, Version=2.11.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VirtoCommerce.Platform.Core.2.11.0\lib\net451\VirtoCommerce.Platform.Core.dll</HintPath>
+    <Reference Include="VirtoCommerce.Platform.Core, Version=2.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VirtoCommerce.Platform.Core.2.12.0\lib\net451\VirtoCommerce.Platform.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -74,8 +74,9 @@
     <Compile Include="Common\Conditions\MatchedConditionBase.cs" />
     <Compile Include="Common\Conditions\GeoConditions\ConditionGeoZipCode.cs" />
     <Compile Include="Pricing\BlockPricingCondition.cs" />
+    <Compile Include="Common\Conditions\UserGroupsContainsCondition.cs" />
     <Compile Include="Pricing\Conditions\TagsContainsCondition.cs" />
-    <Compile Include="Pricing\Helpers\PriceEvaluationContextExtension.cs" />
+    <Compile Include="Common\Helpers\EvaluationContextExtension.cs" />
     <Compile Include="Promotion\Conditions\CartConditions\BlockCartCondition.cs" />
     <Compile Include="Promotion\Conditions\CatalogConditions\BlockCatalogCondition.cs" />
     <Compile Include="Promotion\Conditions\CustomerConditions\BlockCustomerCondition.cs" />
@@ -102,18 +103,20 @@
     <Compile Include="Promotion\Rewards\RewardItemGetOfRel.cs" />
     <Compile Include="Promotion\Rewards\RewardItemGetOfRelForNum.cs" />
     <Compile Include="Promotion\Rewards\RewardItemGiftNumItem.cs" />
+    <Compile Include="Promotion\Rewards\RewardPaymentGetOfAbs.cs" />
     <Compile Include="Promotion\Rewards\RewardShippingGetOfAbsShippingMethod.cs" />
+    <Compile Include="Promotion\Rewards\RewardPaymentGetOfRel.cs" />
     <Compile Include="Promotion\Rewards\RewardShippingGetOfRelShippingMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
     <None Include="VirtoCommerce.DynamicExpressionsModule.Data.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Pricing\Helpers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

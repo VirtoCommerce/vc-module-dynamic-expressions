@@ -29,6 +29,10 @@ angular.module(moduleName, [])
           id: 'ConditionIsRegisteredUser',
           displayName: 'Registered user'
       });
+      dynamicExpressionService.registerExpression({
+          id: 'UserGroupsContainsCondition',
+          displayName: 'User groups contains []'
+      });
 
       var availableExcludings = [
             {
@@ -96,7 +100,7 @@ angular.module(moduleName, [])
           id: 'ConditionAtNumItemsOfEntryAreInCart',
           displayName: '[] [] items of entry are in shopping cart'
       });
-
+    
       dynamicExpressionService.registerExpression({
           id: 'RewardBlock',
           newChildLabel: '+ add effect',
@@ -147,6 +151,14 @@ angular.module(moduleName, [])
       dynamicExpressionService.registerExpression({
           id: 'RewardShippingGetOfRelShippingMethod',
           displayName: 'Get [] % off shipping []'
+      });
+      dynamicExpressionService.registerExpression({
+          id: 'RewardPaymentGetOfAbs',
+          displayName: 'Get $[] off payment method []'
+      });
+      dynamicExpressionService.registerExpression({
+          id: 'RewardPaymentGetOfRel',
+          displayName: 'Get [] % off payment method []'
       });
 
       //Register COMMON expressions
@@ -212,8 +224,8 @@ angular.module(moduleName, [])
       });
       dynamicExpressionService.registerExpression({
           groupName: groupNames[1],
-          id: 'TagsContainsCondition',
-          displayName: 'Tags contains []'
+          id: 'UserGroupsContainsCondition',
+          displayName: 'User groups contains []'
       });
 
       $http.get('Modules/$(VirtoCommerce.DynamicExpressions)/Scripts/all-templates.html').then(function (response) {
@@ -239,6 +251,20 @@ angular.module(moduleName, [])
             });
         } else {
             $scope.shippingMethods = [{ code: 'Select Store first!' }];
+        }
+    }
+
+    $scope.$watch('blade.currentEntity.store', initialize);
+}])
+.controller('virtoCommerce.dynamicExpressions.paymentMethodRewardController', ['$scope', function ($scope) {
+    function initialize(storeId) {
+        if (storeId) {
+            $scope.stores.$promise.then(function () {
+                var found = _.findWhere($scope.stores, { id: storeId });
+                $scope.paymentMethods = found.paymentMethods;
+            });
+        } else {
+            $scope.paymentMethods = [{ code: 'Select Store first!' }];
         }
     }
 

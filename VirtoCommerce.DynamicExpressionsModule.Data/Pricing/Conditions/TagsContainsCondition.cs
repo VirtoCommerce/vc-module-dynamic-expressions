@@ -4,9 +4,12 @@ using VirtoCommerce.Domain.Marketing.Model;
 using VirtoCommerce.Domain.Pricing.Model;
 using linq = System.Linq.Expressions;
 using VirtoCommerce.DynamicExpressionsModule.Data.Pricing;
+using VirtoCommerce.DynamicExpressionsModule.Data.Common;
+
 namespace VirtoCommerce.DynamicExpressionsModule.Data.Pricing
 {
     //Tags contains []
+    [Obsolete]
     public class TagsContainsCondition : DynamicExpression, IConditionExpression
     {
         public string Tag { get; set; }
@@ -20,7 +23,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Pricing
         {
             var paramX = linq.Expression.Parameter(typeof(IEvaluationContext), "x");
             var castOp = linq.Expression.MakeUnary(linq.ExpressionType.Convert, paramX, typeof(PriceEvaluationContext));
-            var methodInfo = typeof(PricingEvaluationContextExtension).GetMethod("TagsContains");
+            var methodInfo = typeof(EvaluationContextExtension).GetMethod("UserGroupsContains");
 
             var methodCall = linq.Expression.Call(null, methodInfo, castOp, linq.Expression.Constant(Tag));
 

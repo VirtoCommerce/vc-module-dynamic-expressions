@@ -226,6 +226,26 @@
         <li class="menu-item" ng-click='element1.shippingMethod=x.id?x.code:x.id' ng-repeat="x in shippingMethods">{{x.code}}</li>
     </ul>
 </script>
+<script type="text/ng-template" id="expression-RewardPaymentGetOfAbs.html">
+    Get $
+    <div class="form-input __mini">
+        <input money required ng-model="element1.amount">
+    </div>off payment method
+    <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.paymentMethod ? element1.paymentMethod : 'select payment method'}}</a>
+    <ul class="menu __context" role="menu" id="pshp_menu{{$index}}" ng-controller="virtoCommerce.dynamicExpressions.paymentMethodRewardController">
+        <li class="menu-item" ng-click='element1.paymentMethod=x.id?x.code:x.id' ng-repeat="x in paymentMethods">{{x.code}}</li>
+    </ul>
+</script>
+<script type="text/ng-template" id="expression-RewardPaymentGetOfRel.html">
+    Get 
+    <div class="form-input __mini">
+        <input money required ng-model="element1.amount">
+    </div>% off payment method
+    <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.paymentMethod ? element1.paymentMethod : 'select payment method'}}</a>
+    <ul class="menu __context" role="menu" id="pshp_menu{{$index}}" ng-controller="virtoCommerce.dynamicExpressions.paymentMethodRewardController">
+        <li class="menu-item" ng-click='element1.paymentMethod=x.id?x.code:x.id' ng-repeat="x in paymentMethods">{{x.code}}</li>
+    </ul>
+</script>
 
 <script type="text/ng-template" id="expression-ExcludingCategoryCondition.html">
     items of category
@@ -235,7 +255,12 @@
     items of entry
     <a class="__link" ng-click="openItemSelectWizard(element)">{{element.productId?element.productName || element.productId: 'select entry' }}</a>
 </script>
-
+<script type="text/ng-template" id="expression-UserGroupsContainsCondition.html">
+    User groups contains
+    <div class="form-input">
+        <input required class="form-control" ng-model="element1.group" placeholder="Enter group" />
+    </div>
+</script>
 <!--DYNAMIC CONTENT PUBLISHING-->
 <script type="text/ng-template" id="expression-BlockContentCondition.html">
     If
