@@ -8,10 +8,10 @@ Key features:
 
 # Documentation
 User guide:
-* add dynamic expressions to marketing <a href="http://docs.virtocommerce.com/x/CwHr" target="_blank">Dynamic content</a>
-* add dynamic expressions to marketing <a href="http://docs.virtocommerce.com/x/AgHr" target="_blank">Promotions</a>
+* add dynamic expressions to marketing <a href="https://virtocommerce.com/docs/vc2userguide/marketing/dynamic-content" target="_blank">Dynamic content</a>
+* add dynamic expressions to marketing <a href="https://virtocommerce.com/docs/vc2userguide/marketing/promotions" target="_blank">Promotions</a>
 
-Developer guide: <a href="http://docs.virtocommerce.com/x/tYD-/" target="_blank">composing dynamic conditions</a>
+Developer guide: <a href="https://virtocommerce.com/docs/vc2devguide/working-with-platform-manager/extending-functionality/composing-dynamic-conditions" target="_blank">composing dynamic conditions</a>
 
 
 # Installation
