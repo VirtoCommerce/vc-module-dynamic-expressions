@@ -17,7 +17,7 @@
     <owners>
         <owner>Virto Commerce</owner>
     </owners>
-    <projectUrl>https://github.com/VirtoCommerce/vc-module-dynamic-expressions</projectUrl>
+    <projectUrl>https://virtocommerce.com/apps/extensions/virto-dynamic-expression-module</projectUrl>
     <iconUrl>Modules/$(VirtoCommerce.DynamicExpressions)/Content/logo.png</iconUrl>
     <releaseNotes>First version.</releaseNotes>
     <copyright>Copyright © 2011-2016 Virto Commerce. All rights reserved</copyright>
