@@ -292,7 +292,7 @@
     Browsing from a time zone -/+ offset from UTC
     <a class="__link" left-click-menu data-target="compareCondition_menu{{element1.id}}">{{element1.compareCondition | compareConditionToText}}</a>
     <div class="form-group" ng-controller="virtoCommerce.dynamicExpressions.conditionGeoTimeZoneController">
-        <ui-select ng-model="element1.value">
+        <ui-select ng-model="element1.value" required>
             <ui-select-match placeholder="Select timezone">{{$select.selected.name}}</ui-select-match>
             <ui-select-choices repeat="x.id as x in timeZones | filter: { name: $select.search }">
                 <span ng-bind-html="x.name | highlight: $select.search"></span>
@@ -329,10 +329,10 @@
 </script>
 <script type="text/ng-template" id="expression-ConditionGeoCountry.html">
     Browsing from country
-    <div class="form-input" ng-controller="virtoCommerce.dynamicExpressions.conditionGeoCountryController">
+    <div class="form-group" ng-controller="virtoCommerce.dynamicExpressions.conditionGeoCountryController">
         <ui-select ng-model="element1.value" required>
             <ui-select-match placeholder="Select...">{{$select.selected.name}}</ui-select-match>
-            <ui-select-choices repeat="x.code as x in countries | filter: $select.search ">
+            <ui-select-choices repeat="x.id as x in countries | filter: $select.search ">
                 <span ng-bind-html="x.name | highlight: $select.search"></span>
             </ui-select-choices>
         </ui-select>
