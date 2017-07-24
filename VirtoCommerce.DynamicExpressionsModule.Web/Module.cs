@@ -92,7 +92,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Web
             {
                 AvailableChildren = new DynamicExpression[]
                 {
-                    new RewardCartGetOfAbsSubtotal(), new RewardItemGetFreeNumItemOfProduct(), new RewardItemGetOfAbs(),
+                    new RewardCartGetOfAbsSubtotal(), new RewardCartGetOfRelSubtotal(), new RewardItemGetFreeNumItemOfProduct(), new RewardItemGetOfAbs(),
                     new RewardItemGetOfAbsForNum(), new RewardItemGetOfRel(), new RewardItemGetOfRelForNum(),
                     new RewardItemGiftNumItem(), new RewardShippingGetOfAbsShippingMethod(), new RewardShippingGetOfRelShippingMethod(), new RewardPaymentGetOfAbs(),
                     new RewardPaymentGetOfRel()
