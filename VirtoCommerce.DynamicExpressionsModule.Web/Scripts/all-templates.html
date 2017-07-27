@@ -104,6 +104,17 @@
         <li class="menu-item" ng-click='element1.exactly=false;'>at least</li>
     </ul>
 </script>
+<script type="text/ng-template" id="expression-ConditionInStockQuantity.html">
+    InStock quantity is
+    <a class="__link" left-click-menu data-target="exactly_menu{{element1.id}}">{{element1.exactly | boolToValue:'exactly':'at least'}}</a>
+    <div class="form-input __mini __number">
+        <input smart-float num-type="integer" required ng-model="element1.quantity">
+    </div>item(s)
+    <ul class="menu __context" role="menu" id="exactly_menu{{element1.id}}">
+        <li class="menu-item" ng-click='element1.exactly=true;'>exactly</li>
+        <li class="menu-item" ng-click='element1.exactly=false;'>at least</li>
+    </ul>
+</script>
 
 <script type="text/ng-template" id="expression-RewardBlock.html">
     They get:
@@ -292,7 +303,7 @@
     Browsing from a time zone -/+ offset from UTC
     <a class="__link" left-click-menu data-target="compareCondition_menu{{element1.id}}">{{element1.compareCondition | compareConditionToText}}</a>
     <div class="form-group" ng-controller="virtoCommerce.dynamicExpressions.conditionGeoTimeZoneController">
-        <ui-select ng-model="element1.value" required>
+        <ui-select ng-model="element1.value">
             <ui-select-match placeholder="Select timezone">{{$select.selected.name}}</ui-select-match>
             <ui-select-choices repeat="x.id as x in timeZones | filter: { name: $select.search }">
                 <span ng-bind-html="x.name | highlight: $select.search"></span>
@@ -329,10 +340,10 @@
 </script>
 <script type="text/ng-template" id="expression-ConditionGeoCountry.html">
     Browsing from country
-    <div class="form-group" ng-controller="virtoCommerce.dynamicExpressions.conditionGeoCountryController">
+    <div class="form-input" ng-controller="virtoCommerce.dynamicExpressions.conditionGeoCountryController">
         <ui-select ng-model="element1.value" required>
             <ui-select-match placeholder="Select...">{{$select.selected.name}}</ui-select-match>
-            <ui-select-choices repeat="x.id as x in countries | filter: $select.search ">
+            <ui-select-choices repeat="x.code as x in countries | filter: $select.search ">
                 <span ng-bind-html="x.name | highlight: $select.search"></span>
             </ui-select-choices>
         </ui-select>

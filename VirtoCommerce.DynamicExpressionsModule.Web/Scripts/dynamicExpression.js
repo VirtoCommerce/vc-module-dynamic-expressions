@@ -100,6 +100,10 @@ angular.module(moduleName, [])
           id: 'ConditionAtNumItemsOfEntryAreInCart',
           displayName: '[] [] items of entry are in shopping cart'
       });
+      dynamicExpressionService.registerExpression({
+          id: 'ConditionInStockQuantity',
+          displayName: 'InStock quantity is []'
+      });
     
       dynamicExpressionService.registerExpression({
           id: 'RewardBlock',
@@ -236,11 +240,11 @@ angular.module(moduleName, [])
 .controller('virtoCommerce.dynamicExpressions.conditionLanguageIsController', ['$scope', 'platformWebApp.settings', function ($scope, settings) {
     $scope.availableLanguages = settings.getValues({ id: 'VirtoCommerce.Core.General.Languages' });
 }])
-.controller('virtoCommerce.dynamicExpressions.conditionGeoCountryController', ['$scope', 'platformWebApp.common.countries', function ($scope, countries) {
+.controller('virtoCommerce.dynamicExpressions.conditionGeoCountryController', ['$scope', 'virtoCommerce.coreModule.common.countries', function ($scope, countries) {
     $scope.countries = countries.query();
 }])
-.controller('virtoCommerce.dynamicExpressions.conditionGeoTimeZoneController', ['$scope', 'platformWebApp.common.timeZones', function ($scope, countries) {
-    $scope.timeZones = countries.query();
+.controller('virtoCommerce.dynamicExpressions.conditionGeoTimeZoneController', ['$scope', 'virtoCommerce.coreModule.common.countries', function ($scope, countries) {
+    $scope.timeZones = countries.getTimeZones();
 }])
 .controller('virtoCommerce.dynamicExpressions.shippingMethodRewardController', ['$scope', function ($scope) {
     function initialize(storeId) {

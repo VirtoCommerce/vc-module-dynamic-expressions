@@ -74,11 +74,19 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 		public static bool IsItemInProduct(this PromotionEvaluationContext context, string productId)
 		{
 			return new ProductPromoEntry[] { context.PromoEntry }.InProducts(new[] { productId }).Any();
-		}
-		#endregion
+        }
 
-		#region ProductPromoEntry extensions
-		public static IEnumerable<ProductPromoEntry> InCategory(this IEnumerable<ProductPromoEntry> entries, string categoryId)
+        public static bool IsItemsInStockQuantity(this PromotionEvaluationContext context, bool isExactly, int quantity)
+        {
+            if (isExactly)
+                return context.PromoEntry.Quantity == quantity;
+            else
+                return context.PromoEntry.Quantity >= quantity;
+        }
+        #endregion
+
+        #region ProductPromoEntry extensions
+        public static IEnumerable<ProductPromoEntry> InCategory(this IEnumerable<ProductPromoEntry> entries, string categoryId)
 		{
 			var retVal = entries.InCategories(new[] { categoryId });
 			return retVal;
