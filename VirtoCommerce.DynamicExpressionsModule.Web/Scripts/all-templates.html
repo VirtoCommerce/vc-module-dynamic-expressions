@@ -48,6 +48,17 @@
     Category is
     <a class="__link" ng-click="openCategorySelectWizard(element1)">{{element1.categoryName?element1.categoryName: 'select category' }}</a>
 </script>
+<script type="text/ng-template" id="expression-ConditionInStockQuantity.html">
+    InStock quantity is
+    <a class="__link" left-click-menu data-target="exactly_menu{{element1.id}}">{{element1.exactly | boolToValue:'exactly':'at least'}}</a>
+    <div class="form-input __mini __number">
+        <input smart-float num-type="integer" required ng-model="element1.quantity">
+    </div>item(s)
+    <ul class="menu __context" role="menu" id="exactly_menu{{element1.id}}">
+        <li class="menu-item" ng-click='element1.exactly=true;'>exactly</li>
+        <li class="menu-item" ng-click='element1.exactly=false;'>at least</li>
+    </ul>
+</script>
 
 <script type="text/ng-template" id="expression-BlockCartCondition.html">
     if
@@ -99,17 +110,6 @@
     </div>items of entry
     <a class="__link" ng-click="openItemSelectWizard(element1)">{{element1.productId?element1.productName: 'select entry' }}</a>
     are in shopping cart
-    <ul class="menu __context" role="menu" id="exactly_menu{{element1.id}}">
-        <li class="menu-item" ng-click='element1.exactly=true;'>exactly</li>
-        <li class="menu-item" ng-click='element1.exactly=false;'>at least</li>
-    </ul>
-</script>
-<script type="text/ng-template" id="expression-ConditionInStockQuantity.html">
-    InStock quantity is
-    <a class="__link" left-click-menu data-target="exactly_menu{{element1.id}}">{{element1.exactly | boolToValue:'exactly':'at least'}}</a>
-    <div class="form-input __mini __number">
-        <input smart-float num-type="integer" required ng-model="element1.quantity">
-    </div>item(s)
     <ul class="menu __context" role="menu" id="exactly_menu{{element1.id}}">
         <li class="menu-item" ng-click='element1.exactly=true;'>exactly</li>
         <li class="menu-item" ng-click='element1.exactly=false;'>at least</li>

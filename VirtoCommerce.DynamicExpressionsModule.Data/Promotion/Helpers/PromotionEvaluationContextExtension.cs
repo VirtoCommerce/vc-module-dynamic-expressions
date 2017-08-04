@@ -79,9 +79,9 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
         public static bool IsItemsInStockQuantity(this PromotionEvaluationContext context, bool isExactly, int quantity)
         {
             if (isExactly)
-                return context.PromoEntry.Quantity == quantity;
+                return context.PromoEntry.InStockQuantity == quantity;
             else
-                return context.PromoEntry.Quantity >= quantity;
+                return context.PromoEntry.InStockQuantity >= quantity;
         }
         #endregion
 

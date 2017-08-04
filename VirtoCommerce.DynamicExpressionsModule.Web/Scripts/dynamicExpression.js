@@ -73,6 +73,10 @@ angular.module(moduleName, [])
           id: 'ConditionCategoryIs',
           displayName: 'Category is []'
       });
+      dynamicExpressionService.registerExpression({
+          id: 'ConditionInStockQuantity',
+          displayName: 'InStock quantity is []'
+      });
 
       dynamicExpressionService.registerExpression({
           id: 'BlockCartCondition',

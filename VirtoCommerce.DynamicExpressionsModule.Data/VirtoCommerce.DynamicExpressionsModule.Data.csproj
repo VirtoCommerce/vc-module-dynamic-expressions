@@ -78,8 +78,8 @@
     <Compile Include="Pricing\Conditions\TagsContainsCondition.cs" />
     <Compile Include="Common\Helpers\EvaluationContextExtension.cs" />
     <Compile Include="Promotion\Conditions\CartConditions\BlockCartCondition.cs" />
-    <Compile Include="Promotion\Conditions\CartConditions\ConditionInStockQuantity.cs" />
     <Compile Include="Promotion\Conditions\CatalogConditions\BlockCatalogCondition.cs" />
+    <Compile Include="Promotion\Conditions\CatalogConditions\ConditionInStockQuantity.cs" />
     <Compile Include="Promotion\Conditions\CustomerConditions\BlockCustomerCondition.cs" />
     <Compile Include="Promotion\Conditions\CartConditions\ConditionAtCartItemExtendedTotal.cs" />
     <Compile Include="Promotion\Conditions\CartConditions\ConditionAtNumItemsInCart.cs" />
