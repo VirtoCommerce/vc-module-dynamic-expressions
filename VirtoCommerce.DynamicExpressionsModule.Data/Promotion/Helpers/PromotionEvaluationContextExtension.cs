@@ -45,10 +45,11 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
 		public static bool IsItemInCategory(this PromotionEvaluationContext context, string categoryId, string[] excludingCategoryIds, string[] excludingProductIds)
 		{
-			return new ProductPromoEntry[] { context.PromoEntry }.InCategories(new[] { categoryId })
+			var result = new ProductPromoEntry[] { context.PromoEntry }.InCategories(new[] { categoryId })
 							   .ExcludeCategories(excludingCategoryIds)
 							   .ExcludeProducts(excludingProductIds)
 							   .Any();
+            return result;
 		}
 
 		public static bool IsItemCodeContains(this PromotionEvaluationContext context, string code)
@@ -130,7 +131,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 			var retVal = categoryIds.Contains(entry.CategoryId);
 			if (!retVal && entry.Outline != null)
 			{
-				retVal = entry.Outline.Split(';').Any(x => x == entry.CategoryId);
+				retVal = entry.Outline.Split(';', '/', '\\').Intersect(categoryIds).Any();
 			}
 			return retVal;
 		}
