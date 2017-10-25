@@ -11,6 +11,8 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data
 	public abstract class BlockConditionAndOr : DynamicExpression, IConditionExpression
 	{
 		public bool All { get; set; }
+        //Logical inverse of expression
+        public bool Not { get; set; } = false;
 		#region IConditionExpression Members
 
 		public System.Linq.Expressions.Expression<Func<IEvaluationContext, bool>> GetConditionExpression()
@@ -23,12 +25,17 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data
 				{
 					retVal = All ? retVal.And(expression) : retVal.Or(expression);
 				}
-			}
-			return retVal;
-		}
+                if (Not)
+                {
+                    var invokedExpr = System.Linq.Expressions.Expression.Not(System.Linq.Expressions.Expression.Invoke(retVal, retVal.Parameters.Cast<System.Linq.Expressions.Expression>()));
+                    retVal = System.Linq.Expressions.Expression.Lambda<Func<IEvaluationContext, bool>>(invokedExpr, retVal.Parameters);
+                }
+            }
+            return retVal;
+            
+        }
 
-		#endregion
+        #endregion      
 
-		
-	}
+    }
 }

@@ -71,7 +71,9 @@ angular.module(moduleName, [])
       });
       dynamicExpressionService.registerExpression({
           id: 'ConditionCategoryIs',
-          displayName: 'Category is []'
+          displayName: 'Category is []',
+          availableChildren: availableExcludings,
+          newChildLabel: '+ excluding'
       });
       dynamicExpressionService.registerExpression({
           id: 'ConditionInStockQuantity',
