@@ -10,13 +10,14 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
 		public string ProductId { get; set; }
 		public string ProductName { get; set; }
-	
-		#region IConditionExpression Members
-		/// <summary>
-		/// ((PromotionEvaluationContext)x).IsItemInProduct(ProductId)
-		/// </summary>
-		/// <returns></returns>
-		public linq.Expression<Func<IEvaluationContext, bool>> GetConditionExpression()
+        public string ProductCode { get; set; }
+
+        #region IConditionExpression Members
+        /// <summary>
+        /// ((PromotionEvaluationContext)x).IsItemInProduct(ProductId)
+        /// </summary>
+        /// <returns></returns>
+        public linq.Expression<Func<IEvaluationContext, bool>> GetConditionExpression()
 		{
 			var paramX = linq.Expression.Parameter(typeof(IEvaluationContext), "x");
 			var castOp = linq.Expression.MakeUnary(linq.ExpressionType.Convert, paramX, typeof(PromotionEvaluationContext));
