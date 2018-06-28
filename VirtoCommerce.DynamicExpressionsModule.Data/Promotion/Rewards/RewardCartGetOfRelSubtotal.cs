@@ -7,23 +7,23 @@ using VirtoCommerce.Domain.Common;
 
 namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 {
-	//Get [] % off cart subtotal
-	public class RewardCartGetOfRelSubtotal : DynamicExpression, IRewardExpression
-	{
-		public decimal Amount { get; set; }
+    //Get [] % off cart subtotal
+    public class RewardCartGetOfRelSubtotal : DynamicExpression, IRewardExpression
+    {
+        public decimal Amount { get; set; }
 
-		#region IRewardsExpression Members
+        #region IRewardsExpression Members
 
-		public PromotionReward[] GetRewards()
-		{
-			var retVal = new CatalogItemAmountReward
-			{
-				Amount = Amount,
-				AmountType = RewardAmountType.Relative
-			};
-			return new PromotionReward[] { retVal };
-		}
+        public PromotionReward[] GetRewards()
+        {
+            var retVal = new CartSubtotalReward
+            {
+                Amount = Amount,
+                AmountType = RewardAmountType.Relative
+            };
+            return new PromotionReward[] { retVal };
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }
