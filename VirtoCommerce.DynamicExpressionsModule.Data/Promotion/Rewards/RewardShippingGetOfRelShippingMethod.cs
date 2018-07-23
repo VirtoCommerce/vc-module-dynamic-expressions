@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,10 +12,11 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 	{
 		public decimal Amount { get; set; }
 		public string ShippingMethod { get; set; }
-	
-		#region IRewardExpression Members
+	    public decimal MaxLimit { get; set; }
 
-		public PromotionReward[] GetRewards()
+        #region IRewardExpression Members
+
+        public PromotionReward[] GetRewards()
 		{
 			var retVal = new ShipmentReward
 			{

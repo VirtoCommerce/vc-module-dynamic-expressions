@@ -137,11 +137,7 @@ angular.module(moduleName, [])
       dynamicExpressionService.registerExpression({
           id: 'RewardItemGetOfAbs',
           displayName: 'Get $[] off'
-      });
-      dynamicExpressionService.registerExpression({
-          id: 'RewardItemGetOfRel',
-          displayName: 'Get [] % off'
-      });
+    });
 
       dynamicExpressionService.registerExpression({
           id: 'RewardItemGetOfRel',
@@ -156,7 +152,7 @@ angular.module(moduleName, [])
       });
       dynamicExpressionService.registerExpression({
           id: 'RewardItemGetOfRelForNum',
-          displayName: 'Get [] % off [] items of entry []'
+          displayName: 'Get [] % off [] items of entry [] not to exceed $ []'
           //availableChildren: availableExcludings,
           //newChildLabel: '+ excluding'
       });
@@ -166,7 +162,7 @@ angular.module(moduleName, [])
       });
       dynamicExpressionService.registerExpression({
           id: 'RewardShippingGetOfRelShippingMethod',
-          displayName: 'Get [] % off shipping []'
+          displayName: 'Get [] % off shipping [] not to exceed $ []'
       });
       dynamicExpressionService.registerExpression({
           id: 'RewardPaymentGetOfAbs',
@@ -174,7 +170,7 @@ angular.module(moduleName, [])
       });
       dynamicExpressionService.registerExpression({
           id: 'RewardPaymentGetOfRel',
-          displayName: 'Get [] % off payment method []'
+          displayName: 'Get [] % off payment method [] not to exceed $ []'
       });
 
       //Register COMMON expressions
