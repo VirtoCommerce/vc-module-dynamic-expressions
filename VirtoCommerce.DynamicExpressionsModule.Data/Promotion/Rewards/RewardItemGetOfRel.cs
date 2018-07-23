@@ -7,15 +7,16 @@ using VirtoCommerce.Domain.Common;
 
 namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 {
-	//Get []% off 
-	public class RewardItemGetOfRel : DynamicExpression, IRewardExpression
+    //Get []% off [ select product ] not to exceed $ [ 500 ]
+    public class RewardItemGetOfRel : DynamicExpression, IRewardExpression
 	{
 		public decimal Amount { get; set; }
 		public string ProductId { get; set; }
 		public string ProductName { get; set; }
-		#region IRewardExpression Members
+	    public decimal MaxLimit { get; set; }
+        #region IRewardExpression Members
 
-		public PromotionReward[] GetRewards()
+        public PromotionReward[] GetRewards()
 		{
 			var retVal = new CatalogItemAmountReward
 			{

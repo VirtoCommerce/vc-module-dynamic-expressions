@@ -206,6 +206,11 @@
         <input smart-float num-type="float" required ng-model="element1.amount">
     </div>% off
     <a class="__link" ng-click="openItemSelectWizard(element1)">{{element1.productName?element1.productName: 'select product' }}</a>
+    not to exceed $
+    <div class="form-input __mini">
+        <input money required ng-model="element1.maxLimit">
+    </div>
+
 </script>
 <script type="text/ng-template" id="expression-RewardItemGetOfAbsForNum.html">
     Get $

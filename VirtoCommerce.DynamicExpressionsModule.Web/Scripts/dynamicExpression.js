@@ -142,6 +142,12 @@ angular.module(moduleName, [])
           id: 'RewardItemGetOfRel',
           displayName: 'Get [] % off'
       });
+
+      dynamicExpressionService.registerExpression({
+          id: 'RewardItemGetOfRel',
+          displayName: 'Get [] % off [] not to exceed $ []'
+      });
+
       dynamicExpressionService.registerExpression({
           id: 'RewardItemGetOfAbsForNum',
           displayName: 'Get $[] off [] items of entry []'
