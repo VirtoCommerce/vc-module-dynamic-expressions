@@ -7,8 +7,8 @@ using VirtoCommerce.Domain.Common;
 
 namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 {
-    //Get []% off [] items of entry []
-	public class RewardItemGetOfRelForNum : DynamicExpression, IRewardExpression
+    //Get []% off [] items of entry [] not to exceed $ [ 500 ]
+    public class RewardItemGetOfRelForNum : DynamicExpression, IRewardExpression
 	{
 		public decimal Amount { get; set; }
 		public string ProductId { get; set; }

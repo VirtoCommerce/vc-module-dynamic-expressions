@@ -7,8 +7,8 @@ using VirtoCommerce.Domain.Common;
 
 namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 {
-	//Get [] % off shipping []
-	public class RewardShippingGetOfRelShippingMethod : DynamicExpression, IRewardExpression
+    //Get [] % off shipping [] not to exceed $ [ 500 ]
+    public class RewardShippingGetOfRelShippingMethod : DynamicExpression, IRewardExpression
 	{
 		public decimal Amount { get; set; }
 		public string ShippingMethod { get; set; }

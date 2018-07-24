@@ -7,8 +7,8 @@ using VirtoCommerce.Domain.Common;
 
 namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 {
-	//Get [] % off payment method []
-	public class RewardPaymentGetOfRel : DynamicExpression, IRewardExpression
+    //Get [] % off payment method [] not to exceed $ [ 500 ]
+    public class RewardPaymentGetOfRel : DynamicExpression, IRewardExpression
 	{
 		public decimal Amount { get; set; }
 		public string PaymentMethod { get; set; }
