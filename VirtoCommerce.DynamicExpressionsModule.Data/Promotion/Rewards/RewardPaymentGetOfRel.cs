@@ -22,7 +22,8 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 			{
 				Amount = Amount,
 				AmountType = RewardAmountType.Relative,
-                PaymentMethod = PaymentMethod
+                PaymentMethod = PaymentMethod,
+                MaxLimit = MaxLimit
             };
 			return new PromotionReward[] { retVal };
 		}

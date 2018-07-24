@@ -1,4 +1,4 @@
-﻿<!--PROMOTION-->
+<!--PROMOTION-->
 <script type="text/ng-template" id="expression-BlockCustomerCondition.html">
     For visitor with
     <a class="__link" left-click-menu data-target="allAny_menu{{element.id}}">{{element.all | boolToValue:'all':'any'}}</a> of these eligibilities
@@ -139,7 +139,11 @@
     Get
     <div class="form-input __mini __number">
         <input smart-float num-type="float" required ng-model="element1.amount">
-    </div> % off cart subtotal
+    </div> % off cart subtotal not to exceed $
+    <div class="form-input __mini">
+        <input money required ng-model="element1.maxLimit">
+    </div>
+
 </script>
 <script type="text/ng-template" id="expression-RewardItemGetFreeNumItemOfProduct.html">
     Get

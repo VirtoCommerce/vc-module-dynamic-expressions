@@ -1,4 +1,4 @@
-﻿//Call this to register our module to main application
+//Call this to register our module to main application
 var moduleName = "virtoCommerce.dynamicExpressions";
 
 if (AppDependencies != undefined) {
@@ -124,7 +124,7 @@ angular.module(moduleName, [])
       });
       dynamicExpressionService.registerExpression({
           id: 'RewardCartGetOfRelSubtotal',
-          displayName: 'Get [] % off cart subtotal'
+          displayName: 'Get [] % off cart subtotal not to exceed $ []'
       });
       dynamicExpressionService.registerExpression({
           id: 'RewardItemGetFreeNumItemOfProduct',
