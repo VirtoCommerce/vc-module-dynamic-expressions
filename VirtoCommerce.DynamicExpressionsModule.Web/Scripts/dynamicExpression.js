@@ -255,32 +255,45 @@ angular.module(moduleName, [])
     $scope.timeZones = countries.getTimeZones();
 }])
 .controller('virtoCommerce.dynamicExpressions.shippingMethodRewardController', ['$scope', function ($scope) {
-    function initialize(storeId) {
-        if (storeId) {
+    function initialize(storeIds) {
+        if (storeIds && storeIds.length > 0) {
             $scope.stores.$promise.then(function () {
-                var found = _.findWhere($scope.stores, { id: storeId });
-                $scope.shippingMethods = found.shippingMethods;
+                $scope.shippingMethods = [];
+                let stores = $scope.stores.filter(store => storeIds.some(id => id === store.id));
+                let allShippingMethods = _.flatten(stores.map(store => store.shippingMethods));
+                allShippingMethods.forEach(shippingMethod => {
+                    if ($scope.shippingMethods.findIndex(item => item.code === shippingMethod.code) < 0) {
+                        $scope.shippingMethods.push(shippingMethod);
+                    }
+                });
             });
         } else {
             $scope.shippingMethods = [{ code: 'Select Store first!' }];
         }
     }
 
-    $scope.$watch('blade.currentEntity.store', initialize);
+    $scope.$watch('blade.currentEntity.storeIds', initialize);
 }])
 .controller('virtoCommerce.dynamicExpressions.paymentMethodRewardController', ['$scope', function ($scope) {
-    function initialize(storeId) {
-        if (storeId) {
+    function initialize(storeIds) {
+
+        if (storeIds && storeIds.length > 0) {
             $scope.stores.$promise.then(function () {
-                var found = _.findWhere($scope.stores, { id: storeId });
-                $scope.paymentMethods = found.paymentMethods;
+                $scope.paymentMethods = [];
+                let stores = $scope.stores.filter(store => storeIds.some(id => id === store.id));
+                let allPaymentMethods = _.flatten(stores.map(store => store.paymentMethods));
+                allPaymentMethods.forEach(paymentMethod => {
+                    if ($scope.paymentMethods.findIndex(item => item.code === paymentMethod.code) < 0) {
+                        $scope.paymentMethods.push(paymentMethod);
+                    }
+                });
             });
         } else {
             $scope.paymentMethods = [{ code: 'Select Store first!' }];
         }
     }
 
-    $scope.$watch('blade.currentEntity.store', initialize);
+    $scope.$watch('blade.currentEntity.storeIds', initialize);
 }])
 .filter('compareConditionToText', function () {
     return function (input) {
