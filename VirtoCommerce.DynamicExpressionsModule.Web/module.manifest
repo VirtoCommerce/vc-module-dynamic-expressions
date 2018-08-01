@@ -25,6 +25,9 @@
 
     <assemblyFile>VirtoCommerce.DynamicExpressionsModule.Web.dll</assemblyFile>
     <moduleType>VirtoCommerce.DynamicExpressionsModule.Web.Module, VirtoCommerce.DynamicExpressionsModule.Web</moduleType>
+    <styles>
+        <directory virtualPath="$/Content/css" searchPattern="*.css" searchSubdirectories="true" />
+    </styles>
 
     <scripts>
         <directory virtualPath="$/Scripts" searchPattern="*.js" searchSubdirectories="true" />

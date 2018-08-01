@@ -258,7 +258,7 @@
     <div class="form-input __mini __number">
         <input smart-float num-type="float" required ng-model="element1.amount">
     </div>
-    <div style="width:230px; vertical-align: bottom; display: inline-block;">
+    <div class="long-reward-expression">
         % off shipping
         <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.shippingMethod ? element1.shippingMethod : 'select shipping'}}</a>
         <ul class="menu __context" role="menu" id="pshp_menu{{$index}}" ng-controller="virtoCommerce.dynamicExpressions.shippingMethodRewardController">
@@ -285,7 +285,7 @@
     <div class="form-input __mini">
         <input money required ng-model="element1.amount">
     </div>
-    <div style="width:230px; vertical-align: bottom; display: inline-block;">
+    <div class="long-reward-expression">
     % off payment method
     <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.paymentMethod ? element1.paymentMethod : 'select payment method'}}</a>
     <ul class="menu __context" role="menu" id="pshp_menu{{$index}}" ng-controller="virtoCommerce.dynamicExpressions.paymentMethodRewardController">
