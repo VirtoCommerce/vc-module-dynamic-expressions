@@ -256,44 +256,25 @@ angular.module(moduleName, [])
 }])
 .controller('virtoCommerce.dynamicExpressions.shippingMethodRewardController', ['$scope', function ($scope) {
     function initialize(storeIds) {
-        if (storeIds && storeIds.length > 0) {
-            $scope.stores.$promise.then(function () {
-                $scope.shippingMethods = [];
-                let stores = $scope.stores.filter(store => storeIds.some(id => id === store.id));
-                let allShippingMethods = _.flatten(stores.map(store => store.shippingMethods));
-                allShippingMethods.forEach(shippingMethod => {
-                    if ($scope.shippingMethods.findIndex(item => item.code === shippingMethod.code) < 0) {
-                        $scope.shippingMethods.push(shippingMethod);
-                    }
-                });
-            });
-        } else {
+        //Use stores ($scope.stores) from parent controller virtoCommerce.marketingModule.promotionDetailController
+        let selectedStores = _.filter($scope.stores, function (x) { return (storeIds && storeIds.length > 0)  ? storeIds.indexOf(x.id) >= 0 : false });
+        $scope.shippingMethods = _.uniq(_.flatten(_.pluck(selectedStores, 'shippingMethods')), function (x) { return x.code; });
+        if ($scope.shippingMethods.length === 0) {
             $scope.shippingMethods = [{ code: 'Select Store first!' }];
         }
     }
-
-    $scope.$watch('blade.currentEntity.storeIds', initialize);
+        $scope.$watch('blade.currentEntity.storeIds', initialize);
 }])
 .controller('virtoCommerce.dynamicExpressions.paymentMethodRewardController', ['$scope', function ($scope) {
     function initialize(storeIds) {
-
-        if (storeIds && storeIds.length > 0) {
-            $scope.stores.$promise.then(function () {
-                $scope.paymentMethods = [];
-                let stores = $scope.stores.filter(store => storeIds.some(id => id === store.id));
-                let allPaymentMethods = _.flatten(stores.map(store => store.paymentMethods));
-                allPaymentMethods.forEach(paymentMethod => {
-                    if ($scope.paymentMethods.findIndex(item => item.code === paymentMethod.code) < 0) {
-                        $scope.paymentMethods.push(paymentMethod);
-                    }
-                });
-            });
-        } else {
+        //Use stores ($scope.stores) from parent controller virtoCommerce.marketingModule.promotionDetailController
+        let selectedStores = _.filter($scope.stores, function (x) { return (storeIds && storeIds.length > 0) ? storeIds.indexOf(x.id) >= 0 : false });
+        $scope.paymentMethods = _.uniq(_.flatten(_.pluck(selectedStores, 'paymentMethods')), function (x) { return x.code; });
+        if ($scope.paymentMethods.length === 0) {
             $scope.paymentMethods = [{ code: 'Select Store first!' }];
         }
     }
-
-    $scope.$watch('blade.currentEntity.storeIds', initialize);
+        $scope.$watch('blade.currentEntity.storeIds', initialize);
 }])
 .filter('compareConditionToText', function () {
     return function (input) {
