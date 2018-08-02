@@ -1,4 +1,4 @@
-﻿<!--PROMOTION-->
+<!--PROMOTION-->
 <script type="text/ng-template" id="expression-BlockCustomerCondition.html">
     For visitor with
     <a class="__link" left-click-menu data-target="allAny_menu{{element.id}}">{{element.all | boolToValue:'all':'any'}}</a> of these eligibilities
@@ -139,7 +139,11 @@
     Get
     <div class="form-input __mini __number">
         <input smart-float num-type="float" required ng-model="element1.amount">
-    </div> % off cart subtotal
+    </div> % off cart subtotal not to exceed $
+    <div class="form-input __mini">
+        <input money required ng-model="element1.maxLimit">
+    </div>
+
 </script>
 <script type="text/ng-template" id="expression-RewardItemGetFreeNumItemOfProduct.html">
     Get
@@ -206,6 +210,11 @@
         <input smart-float num-type="float" required ng-model="element1.amount">
     </div>% off
     <a class="__link" ng-click="openItemSelectWizard(element1)">{{element1.productName?element1.productName: 'select product' }}</a>
+    not to exceed $
+    <div class="form-input __mini">
+        <input money required ng-model="element1.maxLimit">
+    </div>
+
 </script>
 <script type="text/ng-template" id="expression-RewardItemGetOfAbsForNum.html">
     Get $
@@ -221,11 +230,18 @@
     Get
     <div class="form-input __mini __number">
         <input smart-float num-type="float" required ng-model="element1.amount">
-    </div>% off
+    </div>% off not to exceed $
+    <div class="form-input __mini">
+        <input money required ng-model="element1.maxLimit">
+    </div>for
     <div class="form-input __mini __number">
         <input smart-float num-type="integer" required ng-model="element1.numItem">
-    </div>items of entry
-    <a class="__link" ng-click="openItemSelectWizard(element1)">{{element1.productName?element1.productName: 'select entry' }}</a>
+    </div>
+    <div>
+        items of entry
+        <a class="__link" ng-click="openItemSelectWizard(element1)">{{element1.productName?element1.productName: 'select entry' }}</a>
+
+    </div>
 </script>
 <script type="text/ng-template" id="expression-RewardShippingGetOfAbsShippingMethod.html">
     Get $
@@ -241,11 +257,18 @@
     Get
     <div class="form-input __mini __number">
         <input smart-float num-type="float" required ng-model="element1.amount">
-    </div>% off shipping
-    <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.shippingMethod ? element1.shippingMethod : 'select shipping'}}</a>
-    <ul class="menu __context" role="menu" id="pshp_menu{{$index}}" ng-controller="virtoCommerce.dynamicExpressions.shippingMethodRewardController">
-        <li class="menu-item" ng-click='element1.shippingMethod=x.id?x.code:x.id' ng-repeat="x in shippingMethods">{{x.code}}</li>
-    </ul>
+    </div>
+    <div class="long-reward-expression">
+        % off shipping
+        <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.shippingMethod ? element1.shippingMethod : 'select shipping'}}</a>
+        <ul class="menu __context" role="menu" id="pshp_menu{{$index}}" ng-controller="virtoCommerce.dynamicExpressions.shippingMethodRewardController">
+            <li class="menu-item" ng-click='element1.shippingMethod=x.id?x.code:x.id' ng-repeat="x in shippingMethods">{{x.code}}</li>
+        </ul>
+        not to exceed $
+    </div>
+    <div class="form-input __mini">
+        <input money required ng-model="element1.maxLimit">
+    </div>
 </script>
 <script type="text/ng-template" id="expression-RewardPaymentGetOfAbs.html">
     Get $
@@ -258,14 +281,21 @@
     </ul>
 </script>
 <script type="text/ng-template" id="expression-RewardPaymentGetOfRel.html">
-    Get 
+    Get
     <div class="form-input __mini">
         <input money required ng-model="element1.amount">
-    </div>% off payment method
+    </div>
+    <div class="long-reward-expression">
+    % off payment method
     <a class="__link" left-click-menu data-target="pshp_menu{{$index}}">{{element1.paymentMethod ? element1.paymentMethod : 'select payment method'}}</a>
     <ul class="menu __context" role="menu" id="pshp_menu{{$index}}" ng-controller="virtoCommerce.dynamicExpressions.paymentMethodRewardController">
         <li class="menu-item" ng-click='element1.paymentMethod=x.id?x.code:x.id' ng-repeat="x in paymentMethods">{{x.code}}</li>
     </ul>
+    not to exceed $
+</div>
+    <div class="form-input __mini">
+        <input money required ng-model="element1.maxLimit">
+    </div>
 </script>
 
 <script type="text/ng-template" id="expression-ExcludingCategoryCondition.html">

@@ -1,4 +1,4 @@
-﻿//Call this to register our module to main application
+//Call this to register our module to main application
 var moduleName = "virtoCommerce.dynamicExpressions";
 
 if (AppDependencies != undefined) {
@@ -124,7 +124,7 @@ angular.module(moduleName, [])
       });
       dynamicExpressionService.registerExpression({
           id: 'RewardCartGetOfRelSubtotal',
-          displayName: 'Get [] % off cart subtotal'
+          displayName: 'Get [] % off cart subtotal not to exceed $ []'
       });
       dynamicExpressionService.registerExpression({
           id: 'RewardItemGetFreeNumItemOfProduct',
@@ -137,11 +137,13 @@ angular.module(moduleName, [])
       dynamicExpressionService.registerExpression({
           id: 'RewardItemGetOfAbs',
           displayName: 'Get $[] off'
-      });
+    });
+
       dynamicExpressionService.registerExpression({
           id: 'RewardItemGetOfRel',
-          displayName: 'Get [] % off'
+          displayName: 'Get [] % off [] not to exceed $ []'
       });
+
       dynamicExpressionService.registerExpression({
           id: 'RewardItemGetOfAbsForNum',
           displayName: 'Get $[] off [] items of entry []'
@@ -150,7 +152,7 @@ angular.module(moduleName, [])
       });
       dynamicExpressionService.registerExpression({
           id: 'RewardItemGetOfRelForNum',
-          displayName: 'Get [] % off [] items of entry []'
+          displayName: 'Get [] % off [] items of entry [] not to exceed $ []'
           //availableChildren: availableExcludings,
           //newChildLabel: '+ excluding'
       });
@@ -160,7 +162,7 @@ angular.module(moduleName, [])
       });
       dynamicExpressionService.registerExpression({
           id: 'RewardShippingGetOfRelShippingMethod',
-          displayName: 'Get [] % off shipping []'
+          displayName: 'Get [] % off shipping [] not to exceed $ []'
       });
       dynamicExpressionService.registerExpression({
           id: 'RewardPaymentGetOfAbs',
@@ -168,7 +170,7 @@ angular.module(moduleName, [])
       });
       dynamicExpressionService.registerExpression({
           id: 'RewardPaymentGetOfRel',
-          displayName: 'Get [] % off payment method []'
+          displayName: 'Get [] % off payment method [] not to exceed $ []'
       });
 
       //Register COMMON expressions
@@ -253,32 +255,26 @@ angular.module(moduleName, [])
     $scope.timeZones = countries.getTimeZones();
 }])
 .controller('virtoCommerce.dynamicExpressions.shippingMethodRewardController', ['$scope', function ($scope) {
-    function initialize(storeId) {
-        if (storeId) {
-            $scope.stores.$promise.then(function () {
-                var found = _.findWhere($scope.stores, { id: storeId });
-                $scope.shippingMethods = found.shippingMethods;
-            });
-        } else {
-            $scope.shippingMethods = [{ code: 'Select Store first!' }];
+    function initialize(storeIds) {
+        //Use stores ($scope.stores) from parent controller virtoCommerce.marketingModule.promotionDetailController
+        let selectedStores = _.filter($scope.stores, function (x) { return (storeIds && storeIds.length > 0)  ? storeIds.indexOf(x.id) >= 0 : true });
+        $scope.shippingMethods = _.uniq(_.flatten(_.pluck(selectedStores, 'shippingMethods')), function (x) { return x.code; });
+        if ($scope.shippingMethods.length === 0) {
+            $scope.shippingMethods = [{ code: 'No methods found' }];
         }
     }
-
-    $scope.$watch('blade.currentEntity.store', initialize);
+        $scope.$watch('blade.currentEntity.storeIds', initialize);
 }])
 .controller('virtoCommerce.dynamicExpressions.paymentMethodRewardController', ['$scope', function ($scope) {
-    function initialize(storeId) {
-        if (storeId) {
-            $scope.stores.$promise.then(function () {
-                var found = _.findWhere($scope.stores, { id: storeId });
-                $scope.paymentMethods = found.paymentMethods;
-            });
-        } else {
-            $scope.paymentMethods = [{ code: 'Select Store first!' }];
+    function initialize(storeIds) {
+        //Use stores ($scope.stores) from parent controller virtoCommerce.marketingModule.promotionDetailController
+        let selectedStores = _.filter($scope.stores, function (x) { return (storeIds && storeIds.length > 0) ? storeIds.indexOf(x.id) >= 0 : true });
+        $scope.paymentMethods = _.uniq(_.flatten(_.pluck(selectedStores, 'paymentMethods')), function (x) { return x.code; });
+        if ($scope.paymentMethods.length === 0) {
+            $scope.paymentMethods = [{ code: 'No methods found' }];
         }
     }
-
-    $scope.$watch('blade.currentEntity.store', initialize);
+        $scope.$watch('blade.currentEntity.storeIds', initialize);
 }])
 .filter('compareConditionToText', function () {
     return function (input) {
