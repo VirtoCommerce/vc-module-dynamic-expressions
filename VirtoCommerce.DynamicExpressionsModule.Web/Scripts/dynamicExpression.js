@@ -268,7 +268,7 @@ angular.module(moduleName, [])
 .controller('virtoCommerce.dynamicExpressions.paymentMethodRewardController', ['$scope', function ($scope) {
     function initialize(storeIds) {
         //Use stores ($scope.stores) from parent controller virtoCommerce.marketingModule.promotionDetailController
-        let selectedStores = _.filter($scope.stores, function (x) { return (storeIds && storeIds.length > 0) ? storeIds.indexOf(x.id) >= 0 : false });
+        let selectedStores = _.filter($scope.stores, function (x) { return (storeIds && storeIds.length > 0) ? storeIds.indexOf(x.id) >= 0 : true });
         $scope.paymentMethods = _.uniq(_.flatten(_.pluck(selectedStores, 'paymentMethods')), function (x) { return x.code; });
         if ($scope.paymentMethods.length === 0) {
             $scope.paymentMethods = [{ code: 'Select Store first!' }];
