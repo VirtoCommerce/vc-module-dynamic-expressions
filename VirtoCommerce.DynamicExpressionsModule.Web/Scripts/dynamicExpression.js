@@ -260,7 +260,7 @@ angular.module(moduleName, [])
         let selectedStores = _.filter($scope.stores, function (x) { return (storeIds && storeIds.length > 0)  ? storeIds.indexOf(x.id) >= 0 : true });
         $scope.shippingMethods = _.uniq(_.flatten(_.pluck(selectedStores, 'shippingMethods')), function (x) { return x.code; });
         if ($scope.shippingMethods.length === 0) {
-            $scope.shippingMethods = [{ code: 'Empty!' }];
+            $scope.shippingMethods = [{ code: 'No methods found' }];
         }
     }
         $scope.$watch('blade.currentEntity.storeIds', initialize);
@@ -271,7 +271,7 @@ angular.module(moduleName, [])
         let selectedStores = _.filter($scope.stores, function (x) { return (storeIds && storeIds.length > 0) ? storeIds.indexOf(x.id) >= 0 : true });
         $scope.paymentMethods = _.uniq(_.flatten(_.pluck(selectedStores, 'paymentMethods')), function (x) { return x.code; });
         if ($scope.paymentMethods.length === 0) {
-            $scope.paymentMethods = [{ code: 'Empty!' }];
+            $scope.paymentMethods = [{ code: 'No methods found' }];
         }
     }
         $scope.$watch('blade.currentEntity.storeIds', initialize);
