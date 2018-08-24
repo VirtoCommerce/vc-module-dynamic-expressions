@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using VirtoCommerce.Domain.Marketing.Model;
@@ -57,18 +57,29 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
         }
 
-        public static bool IsAnyLineItemExtendedTotal(this PromotionEvaluationContext context, decimal lineItemTotal, bool isExactly, string[] excludingCategoryIds, string[] excludingProductIds)
+        public static bool IsAnyLineItemExtendedTotal(this PromotionEvaluationContext context, decimal lineItemTotal, decimal lineItemTotalSecond, string compareCondition, string[] excludingCategoryIds, string[] excludingProductIds)
         {
-            if (isExactly)
+            if (compareCondition == "Exactly")
                 return context.CartPromoEntries.Where(x => x.Price * x.Quantity == lineItemTotal)
                     .ExcludeCategories(excludingCategoryIds)
                     .ExcludeProducts(excludingProductIds)
                     .Any();
-            else
+            else if (compareCondition == "AtLeast")
                 return context.CartPromoEntries.Where(x => x.Price * x.Quantity >= lineItemTotal)
                     .ExcludeCategories(excludingCategoryIds)
                     .ExcludeProducts(excludingProductIds)
                     .Any();
+            else if (compareCondition == "IsLessThanOrEqual")
+                return context.CartPromoEntries.Where(x => x.Price * x.Quantity <= lineItemTotal)
+                    .ExcludeCategories(excludingCategoryIds)
+                    .ExcludeProducts(excludingProductIds)
+                    .Any();
+            else if (compareCondition == "Between")
+                return context.CartPromoEntries.Where(x => x.Price * x.Quantity >= lineItemTotal && x.Quantity <= lineItemTotalSecond)
+                    .ExcludeCategories(excludingCategoryIds)
+                    .ExcludeProducts(excludingProductIds)
+                    .Any();
+            throw new Exception("CompareCondition has incorrect value.");
         }
 
         public static bool IsItemInProduct(this PromotionEvaluationContext context, string productId)
@@ -76,12 +87,17 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
             return new ProductPromoEntry[] { context.PromoEntry }.InProducts(new[] { productId }).Any();
         }
 
-        public static bool IsItemsInStockQuantity(this PromotionEvaluationContext context, bool isExactly, int quantity)
+        public static bool IsItemsInStockQuantity(this PromotionEvaluationContext context, string compareCondition, int quantity, int quantitySecond)
         {
-            if (isExactly)
+            if (compareCondition == "Exactly")
                 return context.PromoEntry.InStockQuantity == quantity;
-            else
+            else if (compareCondition == "AtLeast")
                 return context.PromoEntry.InStockQuantity >= quantity;
+            else if (compareCondition == "IsLessThanOrEqual")
+                return context.PromoEntry.InStockQuantity <= quantity;
+            else if (compareCondition == "Between")
+                return context.PromoEntry.InStockQuantity >= quantity && context.PromoEntry.InStockQuantity <= quantitySecond;
+            throw new Exception("CompareCondition has incorrect value.");
         }
 
         #endregion

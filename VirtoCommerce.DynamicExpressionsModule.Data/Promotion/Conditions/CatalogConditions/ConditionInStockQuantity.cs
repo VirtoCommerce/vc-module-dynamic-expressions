@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using VirtoCommerce.Domain.Common;
 using VirtoCommerce.Domain.Marketing.Model;
 using linq = System.Linq.Expressions;
@@ -10,11 +10,23 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
     {
         public int Quantity { get; set; }
 
+        public int QuantitySecond { get; set; }
+
+        public string CompareCondition { get; set; }
+
+#pragma warning disable 612, 618
+        [Obsolete("Obsolete, only for backwards compatibility", false)]
+#pragma warning restore 612, 618
         public bool Exactly { get; set; }
+
+        public ConditionInStockQuantity()
+        {
+            CompareCondition = "AtLeast";
+        }
 
         #region IConditionExpression Members
         /// <summary>
-        /// ((PromotionEvaluationContext)x).IsItemsInStockQuantity(Exactly, Quantity)
+        /// ((PromotionEvaluationContext)x).IsItemsInStockQuantity(Exactly, Quantity, QuantitySecond)
         /// </summary>
         /// <returns></returns>
         public linq.Expression<Func<IEvaluationContext, bool>> GetConditionExpression()
@@ -22,10 +34,11 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
             var paramX = linq.Expression.Parameter(typeof(IEvaluationContext), "x");
             var castOp = linq.Expression.MakeUnary(linq.ExpressionType.Convert, paramX, typeof(PromotionEvaluationContext));
             var quantity = linq.Expression.Constant(Quantity);
+            var quantitySecond = linq.Expression.Constant(QuantitySecond);
             var methodInfo = typeof(PromotionEvaluationContextExtension).GetMethod("IsItemsInStockQuantity");
+            var compareCondition = linq.Expression.Constant(CompareCondition);
 
-            var equalsOrAtLeast = Exactly ? linq.Expression.Constant(true) : linq.Expression.Constant(false);
-            var methodCall = linq.Expression.Call(null, methodInfo, castOp, equalsOrAtLeast, quantity);
+            var methodCall = linq.Expression.Call(null, methodInfo, castOp, compareCondition, quantity, quantitySecond);
 
             var retVal = linq.Expression.Lambda<Func<IEvaluationContext, bool>>(methodCall, paramX);
 
