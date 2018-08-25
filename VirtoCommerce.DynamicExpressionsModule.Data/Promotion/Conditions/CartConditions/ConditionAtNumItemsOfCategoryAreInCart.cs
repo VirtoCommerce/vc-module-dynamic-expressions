@@ -14,9 +14,6 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
         public string CompareCondition { get; set; }
 
-#pragma warning disable 612, 618
-        [Obsolete("Obsolete, only for backwards compatibility", false)]
-#pragma warning restore 612, 618
         public bool Exactly { get; set; }
 
 		public string CategoryId { get; set; }

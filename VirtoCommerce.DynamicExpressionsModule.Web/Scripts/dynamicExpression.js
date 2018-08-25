@@ -274,25 +274,59 @@ angular.module(moduleName, [])
         $scope.$watch('blade.currentEntity.storeIds', initialize);
     }])
     .filter('compareConditionToText', function () {
-        return function (input) {
+        return function (input, exactly) {
             var retVal;
-            switch (input) {
-                case 'IsMatching': retVal = 'matching'; break;
-                case 'IsNotMatching': retVal = 'not matching'; break;
-                case 'IsGreaterThan': retVal = 'greater than'; break;
-                case 'IsGreaterThanOrEqual': retVal = 'greater than or equals'; break;
-                case 'IsLessThan': retVal = 'less than'; break;
-                case 'IsLessThanOrEqual': retVal = 'less than or equals'; break;
-                case 'Contains': retVal = 'containing'; break;
-                case 'NotContains': retVal = 'not containing'; break;
-                case 'Matching': retVal = 'matching'; break;
-                case 'NotMatching': retVal = 'not matching'; break;
-                case 'Exactly': retVal = 'exactly'; break;
-                case 'AtLeast': retVal = 'at least'; break;
-                case 'Between': retVal = 'between'; break;
-                default:
-                    retVal = input;
+            if (input == null) {
+                switch (exactly) {
+                    case false: retVal = 'at least'; break;
+                    case true: retVal = 'exactly'; break;
+                }
+            }
+            else {
+                switch (input) {
+                    case 'IsMatching': retVal = 'matching'; break;
+                    case 'IsNotMatching': retVal = 'not matching'; break;
+                    case 'IsGreaterThan': retVal = 'greater than'; break;
+                    case 'IsGreaterThanOrEqual': retVal = 'greater than or equals'; break;
+                    case 'IsLessThan': retVal = 'less than'; break;
+                    case 'IsLessThanOrEqual': retVal = 'less than or equals'; break;
+                    case 'Contains': retVal = 'containing'; break;
+                    case 'NotContains': retVal = 'not containing'; break;
+                    case 'Matching': retVal = 'matching'; break;
+                    case 'NotMatching': retVal = 'not matching'; break;
+                    case 'Exactly': retVal = 'exactly'; break;
+                    case 'AtLeast': retVal = 'at least'; break;
+                    case 'Between': retVal = 'between'; break;
+                    default:
+                        retVal = input;
+                }
             }
             return retVal;
+        };
+    })
+    .directive('betweenDirective', function() {
+        return {
+            require: '^form',
+            link: function (scope, element, attr, mCtrl) {
+                var form = mCtrl;
+                function validationFirst(value) {
+                    if (value <= $(element).find('[name="secondValue"]').val()) {
+                        form.secondValue.$setValidity('notLessThanMin', true);
+                    } else {
+                        form.secondValue.$setValidity('notLessThanMin', false);
+                    }
+                    return value;
+                }
+                function validationSecond(value) {
+                    if (value >= $(element).find('[name="firstValue"]').val()) {
+                        form.secondValue.$setValidity('notLessThanMin', true);
+                    } else {
+                        form.secondValue.$setValidity('notLessThanMin', false);
+                    }
+                    return value;
+                }
+                form.firstValue.$parsers.push(validationFirst);
+                form.secondValue.$parsers.push(validationSecond);
+            }
         };
     });

@@ -209,11 +209,11 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
             IEvaluationContext context = new PromotionEvaluationContext
             {
                 PromoEntries = new List<ProductPromoEntry>
-            {
-                new ProductPromoEntry { InStockQuantity = 12 },
-                new ProductPromoEntry { InStockQuantity = 10 },
-                new ProductPromoEntry { InStockQuantity = 8 }
-            }
+                {
+                    new ProductPromoEntry { InStockQuantity = 12 },
+                    new ProductPromoEntry { InStockQuantity = 10 },
+                    new ProductPromoEntry { InStockQuantity = 8 }
+                }
             };
 
             yield return new object[]
@@ -275,11 +275,11 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
             IEvaluationContext context = new PromotionEvaluationContext
             {
                 PromoEntries = new List<ProductPromoEntry>
-            {
-                new ProductPromoEntry { Price = 5, Quantity = 3 },
-                new ProductPromoEntry { Price = 10, Quantity = 2 },
-                new ProductPromoEntry { Price = 30, Quantity = 1 },
-            }
+                {
+                    new ProductPromoEntry { Price = 5, Quantity = 3 },
+                    new ProductPromoEntry { Price = 10, Quantity = 2 },
+                    new ProductPromoEntry { Price = 30, Quantity = 1 },
+                }
             };
 
             yield return new object[]
@@ -332,17 +332,17 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
         }
         #endregion
 
-        #region ConditionAtCartItemExtendedTotal
+        #region ConditionAtNumItemsInCart
         public static IEnumerable<object[]> ConditionAtNumItemsInCartInputData()
         {
             IEvaluationContext context = new PromotionEvaluationContext
             {
                 PromoEntries = new List<ProductPromoEntry>
-            {
-                new ProductPromoEntry { Quantity = 2 },
-                new ProductPromoEntry { Quantity = 3 },
-                new ProductPromoEntry { Quantity = 5 },
-            }
+                {
+                    new ProductPromoEntry { Quantity = 2 },
+                    new ProductPromoEntry { Quantity = 3 },
+                    new ProductPromoEntry { Quantity = 5 },
+                }
             };
 
             yield return new object[]
@@ -395,17 +395,17 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
         }
         #endregion
 
-        #region ConditionAtCartItemExtendedTotal
+        #region ConditionCartSubtotalLeast
         public static IEnumerable<object[]> ConditionCartSubtotalLeastInputData()
         {
             IEvaluationContext context = new PromotionEvaluationContext
             {
                 PromoEntries = new List<ProductPromoEntry>
-            {
-                new ProductPromoEntry { Quantity = 2, Price = 100 },
-                new ProductPromoEntry { Quantity = 3, Price = 50 },
-                new ProductPromoEntry { Quantity = 15, Price = 10 },
-            }
+                {
+                    new ProductPromoEntry { Quantity = 2, Price = 100 },
+                    new ProductPromoEntry { Quantity = 3, Price = 50 },
+                    new ProductPromoEntry { Quantity = 15, Price = 10 },
+                }
             };
 
             yield return new object[]

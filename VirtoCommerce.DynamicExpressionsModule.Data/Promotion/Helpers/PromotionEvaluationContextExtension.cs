@@ -57,6 +57,21 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
         }
 
+        [Obsolete("Use new method instead.")]
+        public static bool IsAnyLineItemExtendedTotal(this PromotionEvaluationContext context, decimal lineItemTotal, bool isExactly, string[] excludingCategoryIds, string[] excludingProductIds)
+        {
+            if (isExactly)
+                return context.CartPromoEntries.Where(x => x.Price * x.Quantity == lineItemTotal)
+                    .ExcludeCategories(excludingCategoryIds)
+                    .ExcludeProducts(excludingProductIds)
+                    .Any();
+            else
+                return context.CartPromoEntries.Where(x => x.Price * x.Quantity >= lineItemTotal)
+                    .ExcludeCategories(excludingCategoryIds)
+                    .ExcludeProducts(excludingProductIds)
+                    .Any();
+        }
+
         public static bool IsAnyLineItemExtendedTotal(this PromotionEvaluationContext context, decimal lineItemTotal, decimal lineItemTotalSecond, string compareCondition, string[] excludingCategoryIds, string[] excludingProductIds)
         {
             if (compareCondition == "Exactly")
@@ -85,6 +100,15 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
         public static bool IsItemInProduct(this PromotionEvaluationContext context, string productId)
         {
             return new ProductPromoEntry[] { context.PromoEntry }.InProducts(new[] { productId }).Any();
+        }
+
+        [Obsolete("Use new method instead.")]
+        public static bool IsItemsInStockQuantity(this PromotionEvaluationContext context, bool isExactly, int quantity)
+        {
+            if (isExactly)
+                return context.PromoEntry.InStockQuantity == quantity;
+            else
+                return context.PromoEntry.InStockQuantity >= quantity;
         }
 
         public static bool IsItemsInStockQuantity(this PromotionEvaluationContext context, string compareCondition, int quantity, int quantitySecond)
