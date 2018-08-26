@@ -72,7 +72,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
                     .Any();
         }
 
-        public static bool IsAnyLineItemExtendedTotal(this PromotionEvaluationContext context, decimal lineItemTotal, decimal lineItemTotalSecond, string compareCondition, string[] excludingCategoryIds, string[] excludingProductIds)
+        public static bool IsAnyLineItemExtendedTotalNew(this PromotionEvaluationContext context, decimal lineItemTotal, decimal lineItemTotalSecond, string compareCondition, string[] excludingCategoryIds, string[] excludingProductIds)
         {
             if (compareCondition == "Exactly")
                 return context.CartPromoEntries.Where(x => x.Price * x.Quantity == lineItemTotal)
@@ -111,7 +111,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
                 return context.PromoEntry.InStockQuantity >= quantity;
         }
 
-        public static bool IsItemsInStockQuantity(this PromotionEvaluationContext context, string compareCondition, int quantity, int quantitySecond)
+        public static bool IsItemsInStockQuantityNew(this PromotionEvaluationContext context, string compareCondition, int quantity, int quantitySecond)
         {
             if (compareCondition == "Exactly")
                 return context.PromoEntry.InStockQuantity == quantity;

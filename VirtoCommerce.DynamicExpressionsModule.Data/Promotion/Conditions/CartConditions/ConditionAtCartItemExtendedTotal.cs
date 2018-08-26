@@ -32,7 +32,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
             var castOp = linq.Expression.MakeUnary(linq.ExpressionType.Convert, paramX, typeof(PromotionEvaluationContext));
             var lineItemTotal = linq.Expression.Constant(LineItemTotal);
             var lineItemTotalSecond = linq.Expression.Constant(LineItemTotalSecond);
-            var methodInfo = typeof(PromotionEvaluationContextExtension).GetMethod("IsAnyLineItemExtendedTotal", new Type[] { typeof(PromotionEvaluationContext), typeof(decimal), typeof(decimal), typeof(string), typeof(string[]), typeof(string[]) });
+            var methodInfo = typeof(PromotionEvaluationContextExtension).GetMethod("IsAnyLineItemExtendedTotalNew");
             var compareCondition = linq.Expression.Constant(CompareCondition);
 
             var methodCall = linq.Expression.Call(null, methodInfo, castOp, lineItemTotal, lineItemTotalSecond, compareCondition, GetNewArrayExpression(ExcludingCategoryIds),

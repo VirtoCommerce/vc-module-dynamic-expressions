@@ -32,7 +32,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
             var castOp = linq.Expression.MakeUnary(linq.ExpressionType.Convert, paramX, typeof(PromotionEvaluationContext));
             var quantity = linq.Expression.Constant(Quantity);
             var quantitySecond = linq.Expression.Constant(QuantitySecond);
-            var methodInfo = typeof(PromotionEvaluationContextExtension).GetMethod("IsItemsInStockQuantity", new Type[] { typeof(PromotionEvaluationContext), typeof(string), typeof(int), typeof(int) });
+            var methodInfo = typeof(PromotionEvaluationContextExtension).GetMethod("IsItemsInStockQuantityNew");
             var compareCondition = linq.Expression.Constant(CompareCondition);
 
             var methodCall = linq.Expression.Call(null, methodInfo, castOp, compareCondition, quantity, quantitySecond);
