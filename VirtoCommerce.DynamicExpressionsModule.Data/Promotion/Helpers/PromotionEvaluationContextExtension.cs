@@ -60,16 +60,13 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
         [Obsolete("Use new method instead.")]
         public static bool IsAnyLineItemExtendedTotal(this PromotionEvaluationContext context, decimal lineItemTotal, bool isExactly, string[] excludingCategoryIds, string[] excludingProductIds)
         {
+            var compareCondition = "AtLeast";
             if (isExactly)
-                return context.CartPromoEntries.Where(x => x.Price * x.Quantity == lineItemTotal)
-                    .ExcludeCategories(excludingCategoryIds)
-                    .ExcludeProducts(excludingProductIds)
-                    .Any();
-            else
-                return context.CartPromoEntries.Where(x => x.Price * x.Quantity >= lineItemTotal)
-                    .ExcludeCategories(excludingCategoryIds)
-                    .ExcludeProducts(excludingProductIds)
-                    .Any();
+            {
+                compareCondition = "Exactly";
+            }
+
+            return IsAnyLineItemExtendedTotalNew(context, lineItemTotal, 0, compareCondition, excludingCategoryIds, excludingProductIds);
         }
 
         public static bool IsAnyLineItemExtendedTotalNew(this PromotionEvaluationContext context, decimal lineItemTotal, decimal lineItemTotalSecond, string compareCondition, string[] excludingCategoryIds, string[] excludingProductIds)
@@ -105,10 +102,13 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
         [Obsolete("Use new method instead.")]
         public static bool IsItemsInStockQuantity(this PromotionEvaluationContext context, bool isExactly, int quantity)
         {
+            var compareCondition = "AtLeast";
             if (isExactly)
-                return context.PromoEntry.InStockQuantity == quantity;
-            else
-                return context.PromoEntry.InStockQuantity >= quantity;
+            {
+                compareCondition = "Exactly";
+            }
+
+            return IsItemsInStockQuantityNew(context, compareCondition, quantity, 0);
         }
 
         public static bool IsItemsInStockQuantityNew(this PromotionEvaluationContext context, string compareCondition, int quantity, int quantitySecond)

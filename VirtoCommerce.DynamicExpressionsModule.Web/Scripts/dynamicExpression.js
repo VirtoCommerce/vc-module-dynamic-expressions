@@ -303,30 +303,40 @@ angular.module(moduleName, [])
             }
             return retVal;
         };
-    })
-    .directive('betweenDirective', function() {
+    }).directive('betweenValidator', function () {
         return {
-            require: '^form',
-            link: function (scope, element, attr, mCtrl) {
-                var form = mCtrl;
-                function validationFirst(value) {
-                    if (value <= $(element).find('[name="secondValue"]').val()) {
-                        form.secondValue.$setValidity('notLessThanMin', true);
-                    } else {
-                        form.secondValue.$setValidity('notLessThanMin', false);
+            scope: {
+                firstValue: '=',
+                secondValue: '=',
+                compareCondition: '=',
+            },
+            link: function (scope, element) {
+                scope.$watch('firstValue', function (newVal, oldVal) {
+                    if (scope.compareCondition == 'Between' && parseInt(newVal, 10) > scope.secondValue) {
+                        setInvalid();
                     }
-                    return value;
-                }
-                function validationSecond(value) {
-                    if (value >= $(element).find('[name="firstValue"]').val()) {
-                        form.secondValue.$setValidity('notLessThanMin', true);
-                    } else {
-                        form.secondValue.$setValidity('notLessThanMin', false);
+                    else {
+                        setValid();
                     }
-                    return value;
+                });
+                scope.$watch('secondValue', function (newVal, oldVal) {
+                    if (scope.compareCondition == 'Between' && parseInt(newVal, 10) < scope.firstValue) {
+                        setInvalid();
+                    }
+                    else {
+                        setValid();
+                    }
+                });
+                function setValid() {
+                    element.find('input').each(function () {
+                        angular.element(this).controller('ngModel').$setValidity('notLessThanMin', true);
+                    });
                 }
-                form.firstValue.$parsers.push(validationFirst);
-                form.secondValue.$parsers.push(validationSecond);
+                function setInvalid() {
+                    element.find('input').each(function () {
+                        angular.element(this).controller('ngModel').$setValidity('notLessThanMin', false);
+                    });
+                }
             }
         };
     });
