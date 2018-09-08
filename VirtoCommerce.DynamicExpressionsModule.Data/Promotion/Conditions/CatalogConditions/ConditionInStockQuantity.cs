@@ -18,7 +18,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
         public ConditionInStockQuantity()
         {
-            CompareCondition = "AtLeast";
+            CompareCondition = "";
         }
 
         #region IConditionExpression Members
@@ -28,6 +28,9 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
         /// <returns></returns>
         public linq.Expression<Func<IEvaluationContext, bool>> GetConditionExpression()
         {
+            if (CompareCondition == "")
+                CompareCondition = "AtLeast";
+
             var paramX = linq.Expression.Parameter(typeof(IEvaluationContext), "x");
             var castOp = linq.Expression.MakeUnary(linq.ExpressionType.Convert, paramX, typeof(PromotionEvaluationContext));
             var quantity = linq.Expression.Constant(Quantity);

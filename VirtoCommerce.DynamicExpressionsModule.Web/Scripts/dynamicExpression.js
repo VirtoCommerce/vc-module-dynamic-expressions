@@ -276,10 +276,13 @@ angular.module(moduleName, [])
     .filter('compareConditionToText', function () {
         return function (input, exactly) {
             var retVal;
-            if (input == null) {
-                switch (exactly) {
-                    case false: retVal = 'at least'; break;
-                    case true: retVal = 'exactly'; break;
+            if (input == '')
+            {
+                if (exactly == true) {
+                    retVal = 'exactly';
+                }
+                else {
+                    retVal = 'at least';
                 }
             }
             else {
@@ -302,41 +305,5 @@ angular.module(moduleName, [])
                 }
             }
             return retVal;
-        };
-    }).directive('betweenValidator', function () {
-        return {
-            scope: {
-                firstValue: '=',
-                secondValue: '=',
-                compareCondition: '=',
-            },
-            link: function (scope, element) {
-                scope.$watch('firstValue', function (newVal, oldVal) {
-                    if (scope.compareCondition == 'Between' && parseInt(newVal, 10) > scope.secondValue) {
-                        setInvalid();
-                    }
-                    else {
-                        setValid();
-                    }
-                });
-                scope.$watch('secondValue', function (newVal, oldVal) {
-                    if (scope.compareCondition == 'Between' && parseInt(newVal, 10) < scope.firstValue) {
-                        setInvalid();
-                    }
-                    else {
-                        setValid();
-                    }
-                });
-                function setValid() {
-                    element.find('input').each(function () {
-                        angular.element(this).controller('ngModel').$setValidity('notLessThanMin', true);
-                    });
-                }
-                function setInvalid() {
-                    element.find('input').each(function () {
-                        angular.element(this).controller('ngModel').$setValidity('notLessThanMin', false);
-                    });
-                }
-            }
         };
     });

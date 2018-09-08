@@ -18,7 +18,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
         public ConditionCartSubtotalLeast()
         {
-            CompareCondition = "AtLeast";
+            CompareCondition = "";
         }
 
         #region IConditionExpression Members
@@ -28,7 +28,10 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
         /// <returns></returns>
         public linq.Expression<Func<IEvaluationContext, bool>> GetConditionExpression()
 		{
-			var paramX = linq.Expression.Parameter(typeof(IEvaluationContext), "x");
+            if (CompareCondition == "")
+                CompareCondition = "AtLeast";
+
+            var paramX = linq.Expression.Parameter(typeof(IEvaluationContext), "x");
 			var castOp = linq.Expression.MakeUnary(linq.ExpressionType.Convert, paramX, typeof(PromotionEvaluationContext));
 			var subTotal = linq.Expression.Constant(SubTotal);
             var subTotalSecond = linq.Expression.Constant(SubTotalSecond);

@@ -22,7 +22,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
         public ConditionAtNumItemsInCategoryAreInCart()
         {
-            CompareCondition = "AtLeast";
+            CompareCondition = "";
         }
 
         #region IConditionExpression Members
@@ -32,7 +32,10 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
         /// <returns></returns>
         public linq.Expression<Func<IEvaluationContext, bool>> GetConditionExpression()
 		{
-			var paramX = linq.Expression.Parameter(typeof(IEvaluationContext), "x");
+            if (CompareCondition == "")
+                CompareCondition = "AtLeast";
+
+            var paramX = linq.Expression.Parameter(typeof(IEvaluationContext), "x");
 			var castOp = linq.Expression.MakeUnary(linq.ExpressionType.Convert, paramX, typeof(PromotionEvaluationContext));
 			var methodInfo = typeof(PromotionEvaluationContextExtension).GetMethod("GetCartItemsOfCategoryQuantity");
 			var methodCall = linq.Expression.Call(null, methodInfo, castOp, linq.Expression.Constant(CategoryId), GetNewArrayExpression(ExcludingCategoryIds),
