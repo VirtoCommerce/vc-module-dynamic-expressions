@@ -107,11 +107,6 @@ angular.module(moduleName, [])
                 displayName: '[] [] items of entry are in shopping cart'
             });
             dynamicExpressionService.registerExpression({
-                id: 'ConditionInStockQuantity',
-                displayName: 'InStock quantity is []'
-            });
-
-            dynamicExpressionService.registerExpression({
                 id: 'RewardBlock',
                 newChildLabel: '+ add effect',
                 getValidationError: function () {
@@ -281,6 +276,7 @@ angular.module(moduleName, [])
     .filter('compareConditionToText', function () {
         return function (input) {
             var retVal;
+
             switch (input) {
                 case 'IsMatching': retVal = 'matching'; break;
                 case 'IsNotMatching': retVal = 'not matching'; break;
@@ -292,6 +288,9 @@ angular.module(moduleName, [])
                 case 'NotContains': retVal = 'not containing'; break;
                 case 'Matching': retVal = 'matching'; break;
                 case 'NotMatching': retVal = 'not matching'; break;
+                case 'Exactly': retVal = 'exactly'; break;
+                case 'AtLeast': retVal = 'at least'; break;
+                case 'Between': retVal = 'between'; break;
                 default:
                     retVal = input;
             }

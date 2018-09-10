@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using VirtoCommerce.Domain.Common;
@@ -209,16 +209,28 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
             IEvaluationContext context = new PromotionEvaluationContext
             {
                 PromoEntries = new List<ProductPromoEntry>
-            {
-                new ProductPromoEntry { InStockQuantity = 12 },
-                new ProductPromoEntry { InStockQuantity = 10 },
-                new ProductPromoEntry { InStockQuantity = 8 }
-            }
+                {
+                    new ProductPromoEntry { InStockQuantity = 12 },
+                    new ProductPromoEntry { InStockQuantity = 10 },
+                    new ProductPromoEntry { InStockQuantity = 8 }
+                }
             };
 
             yield return new object[]
             {
-                new IConditionExpression[] { new ConditionInStockQuantity { Quantity = 10 } },
+                new IConditionExpression[] { new ConditionInStockQuantity { Quantity = 7, CompareCondition = "AtLeast" } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 3,
+                    InvalidCount = 0
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionInStockQuantity { Quantity = 10, CompareCondition = "IsLessThanOrEqual" } },
                 new IRewardExpression[] { new RewardItemGetOfRel() },
                 context,
                 new DynamicPromotionEvaluationResult
@@ -230,7 +242,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
 
             yield return new object[]
             {
-                new IConditionExpression[] { new ConditionInStockQuantity { Quantity = 10, Exactly = true } },
+                new IConditionExpression[] { new ConditionInStockQuantity { Quantity = 10, CompareCondition = "Exactly" } },
                 new IRewardExpression[] { new RewardItemGetOfRel() },
                 context,
                 new DynamicPromotionEvaluationResult
@@ -244,9 +256,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
             {
                 new IConditionExpression[]
                 {
-                    new ConditionInStockQuantity { Quantity = 12 },
-                    new ConditionInStockQuantity { Quantity = 10, Exactly = true },
-                    new ConditionInStockQuantity { Quantity = 7, Exactly = true }
+                    new ConditionInStockQuantity { Quantity = 8, QuantitySecond = 10, CompareCondition = "Between" },
                 },
                 new IRewardExpression[] { new RewardItemGetOfRel() },
                 context,
@@ -254,6 +264,195 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
                 {
                     ValidCount = 2,
                     InvalidCount = 1
+                }
+            };
+        }
+        #endregion
+
+        #region ConditionAtCartItemExtendedTotal
+        public static IEnumerable<object[]> ConditionAtCartItemExtendedTotalInputData()
+        {
+            IEvaluationContext context = new PromotionEvaluationContext
+            {
+                PromoEntries = new List<ProductPromoEntry>
+                {
+                    new ProductPromoEntry { Price = 5, Quantity = 3 },
+                    new ProductPromoEntry { Price = 10, Quantity = 2 },
+                    new ProductPromoEntry { Price = 30, Quantity = 1 },
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionAtCartItemExtendedTotal { LineItemTotal = 20, CompareCondition = "AtLeast" } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 2,
+                    InvalidCount = 1
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionAtCartItemExtendedTotal { LineItemTotal = 15, CompareCondition = "Exactly" } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 1,
+                    InvalidCount = 2
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionAtCartItemExtendedTotal { LineItemTotal = 20, LineItemTotalSecond = 30, CompareCondition = "Between" } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 2,
+                    InvalidCount = 1
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionAtCartItemExtendedTotal { LineItemTotal = 30, CompareCondition = "IsLessThanOrEqual" } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 3,
+                    InvalidCount = 0
+                }
+            };
+        }
+        #endregion
+
+        #region ConditionAtNumItemsInCart
+        public static IEnumerable<object[]> ConditionAtNumItemsInCartInputData()
+        {
+            IEvaluationContext context = new PromotionEvaluationContext
+            {
+                PromoEntries = new List<ProductPromoEntry>
+                {
+                    new ProductPromoEntry { Quantity = 2 },
+                    new ProductPromoEntry { Quantity = 3 },
+                    new ProductPromoEntry { Quantity = 5 },
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionAtNumItemsInCart { NumItem = 11, CompareCondition = "AtLeast" } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 0,
+                    InvalidCount = 3
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionAtNumItemsInCart { NumItem = 10, CompareCondition = "Exactly" } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 3,
+                    InvalidCount = 0
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionAtNumItemsInCart { NumItem = 0, NumItemSecond = 10, CompareCondition = "Between" } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 3,
+                    InvalidCount = 0
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionAtNumItemsInCart { NumItem = 9, CompareCondition = "IsLessThanOrEqual" } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 0,
+                    InvalidCount = 3
+                }
+            };
+        }
+        #endregion
+
+        #region ConditionCartSubtotalLeast
+        public static IEnumerable<object[]> ConditionCartSubtotalLeastInputData()
+        {
+            IEvaluationContext context = new PromotionEvaluationContext
+            {
+                PromoEntries = new List<ProductPromoEntry>
+                {
+                    new ProductPromoEntry { Quantity = 2, Price = 100 },
+                    new ProductPromoEntry { Quantity = 3, Price = 50 },
+                    new ProductPromoEntry { Quantity = 15, Price = 10 },
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionCartSubtotalLeast { SubTotal = 600, CompareCondition = "AtLeast" } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 0,
+                    InvalidCount = 3
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionAtNumItemsInCart { NumItem = 500, CompareCondition = "Exactly" } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 3,
+                    InvalidCount = 0
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionAtNumItemsInCart { NumItem = 450, NumItemSecond = 550, CompareCondition = "Between" } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 3,
+                    InvalidCount = 0
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionAtNumItemsInCart { NumItem = 450, CompareCondition = "IsLessThanOrEqual" } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 0,
+                    InvalidCount = 3
                 }
             };
         }

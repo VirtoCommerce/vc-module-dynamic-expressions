@@ -1,83 +1,78 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+using System;
 using VirtoCommerce.Domain.Common;
-using VirtoCommerce.Domain.Marketing.Model.DynamicContent;
+using VirtoCommerce.Platform.Core.Common;
 using linq = System.Linq.Expressions;
 
 namespace VirtoCommerce.DynamicExpressionsModule.Data.Common
 {
-	public abstract class CompareConditionBase<T> : DynamicExpression, IConditionExpression where T : IEvaluationContext 
-	{
-		public string Value { get; set; }
-		public string CompareCondition { get; set; }
+    public abstract class CompareConditionBase : DynamicExpression, IConditionExpression
+    {
 
-		private readonly string _propertyName;
-		protected CompareConditionBase(string propertyName)
-		{
-			_propertyName = propertyName;
-		    CompareCondition = "IsMatching";
-		}
+        [Obsolete]
+        public bool? Exactly { get; }
 
-		#region IConditionExpression Members
+        private string _compareCondition = ModuleConstants.ConditionOperation.AtLeast;
 
-		public linq.Expression<Func<Domain.Common.IEvaluationContext, bool>> GetConditionExpression()
-		{
-			linq.ParameterExpression paramX = linq.Expression.Parameter(typeof(IEvaluationContext), "x");
-			var castOp = linq.Expression.MakeUnary(linq.ExpressionType.Convert, paramX, typeof(T));
-			var propertyValue = linq.Expression.Property(castOp, typeof(T).GetProperty(_propertyName));
+        public virtual string CompareCondition
+        {
+            get
+            {
+                //Backward compatibility support
+#pragma warning disable 612, 618
+                return Exactly.HasValue && Exactly.Value ? ModuleConstants.ConditionOperation.Exactly : _compareCondition;
+#pragma warning restore 612, 618
+            }
 
-			var valueExpression = linq.Expression.Constant(ParseString(Value));
-			linq.BinaryExpression binaryOp;
+            set
+            {
+                _compareCondition = value;
+            }
+        }
 
-			if (String.Equals(CompareCondition, "IsMatching", StringComparison.InvariantCultureIgnoreCase))
-				binaryOp = linq.Expression.Equal(propertyValue, valueExpression);
-			else if (String.Equals(CompareCondition, "IsNotMatching", StringComparison.InvariantCultureIgnoreCase))
-				binaryOp = linq.Expression.NotEqual(propertyValue, valueExpression);
-			else if (String.Equals(CompareCondition, "IsGreaterThan", StringComparison.InvariantCultureIgnoreCase))
-				binaryOp = linq.Expression.GreaterThan(propertyValue, valueExpression);
-			else if (String.Equals(CompareCondition, "IsGreaterThanOrEqual", StringComparison.InvariantCultureIgnoreCase))
-				binaryOp = linq.Expression.GreaterThanOrEqual(propertyValue, valueExpression);
-			else if (String.Equals(CompareCondition, "IsLessThan", StringComparison.InvariantCultureIgnoreCase))
-				binaryOp = linq.Expression.LessThan(propertyValue, valueExpression);
-			else
-				binaryOp = linq.Expression.LessThanOrEqual(propertyValue, valueExpression);
+        #region IConditionExpression Members
 
-			var retVal = linq.Expression.Lambda<Func<IEvaluationContext, bool>>(binaryOp, paramX);
+        public abstract linq.Expression<Func<IEvaluationContext, bool>> GetConditionExpression();
 
-			return retVal;
-		}
+        #endregion
 
-		#endregion
+        public linq.BinaryExpression GetConditionExpression(linq.Expression leftOperandExpression, linq.Expression rightOperandExpression, linq.Expression rightSecondOperandExpression = null)
+        {
+            linq.BinaryExpression binaryOp;
 
-		private object ParseString(string str)
-		{
-			int intValue;
-			double doubleValue;
-			char charValue;
-			bool boolValue;
-			TimeSpan timespan;
-			DateTime dateTime;
+            if (CompareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.IsMatching) || CompareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.Exactly))
+            {
+                binaryOp = linq.Expression.Equal(leftOperandExpression, rightOperandExpression);
+            }
+            else if (CompareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.IsNotMatching))
+            {
+                binaryOp = linq.Expression.NotEqual(leftOperandExpression, rightOperandExpression);
+            }
+            else if (CompareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.IsGreaterThan))
+            {
+                binaryOp = linq.Expression.GreaterThan(leftOperandExpression, rightOperandExpression);
+            }
+            else if (CompareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.IsLessThan))
+            {
+                binaryOp = linq.Expression.LessThan(leftOperandExpression, rightOperandExpression);
+            }
+            else if (CompareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.Between))
+            {
+                binaryOp = linq.Expression.And(linq.Expression.GreaterThanOrEqual(leftOperandExpression, rightOperandExpression),
+                    linq.Expression.LessThanOrEqual(leftOperandExpression, rightSecondOperandExpression));
+            }
+            else if (CompareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.AtLeast) || CompareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.IsGreaterThanOrEqual))
+            {
+                binaryOp = linq.Expression.GreaterThanOrEqual(leftOperandExpression, rightOperandExpression);
+            }
+            else if (CompareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.IsLessThanOrEqual))
+            {
+                binaryOp = linq.Expression.LessThanOrEqual(leftOperandExpression, rightOperandExpression);
+            }
+            else
+                binaryOp = linq.Expression.LessThanOrEqual(leftOperandExpression, rightOperandExpression);
 
-			// Place checks higher if if-else statement to give higher priority to type.
-			if (int.TryParse(str, out intValue))
-				return intValue;
-			else if (double.TryParse(str, out doubleValue))
-				return doubleValue;
-			else if (TimeSpan.TryParse(str, out timespan))
-				return timespan;
-			else if (DateTime.TryParse(str, out dateTime))
-				return dateTime;
-			else if (char.TryParse(str, out charValue))
-				return charValue;
-			else if (bool.TryParse(str, out boolValue))
-				return boolValue;
+            return binaryOp;
+        }
 
-			return str;
-		}
-	}
+    }
 }
