@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Moq;
 using Newtonsoft.Json;
 using VirtoCommerce.Domain.Common;
@@ -19,7 +19,9 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
         private IPromotionUsageService promotionUsageService = new Mock<IPromotionUsageService>().Object;
 
         [Theory]
+#pragma warning disable CS3016 // Arrays as attribute arguments is not CLS-compliant
         [MemberData(nameof(EvaluationTestDataGenerator.GetConditions), MemberType = typeof(EvaluationTestDataGenerator))]
+#pragma warning restore CS3016 // Arrays as attribute arguments is not CLS-compliant
         public void CheckPromotionValid(IConditionExpression[] conditions, IRewardExpression[] rewards, IEvaluationContext context, DynamicPromotionEvaluationResult evaluationResult)
         {
             DynamicPromotion dynamicPromotion = GetDynamicPromotion(conditions, rewards);
