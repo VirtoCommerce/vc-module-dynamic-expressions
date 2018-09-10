@@ -55,7 +55,7 @@
 </script>
 <script type="text/ng-template" id="expression-ConditionInStockQuantity.html">   
         InStock quantity is
-        <a class="__link" left-click-menu data-target="compareCondition_menu{{element1.id}}">{{element1.compareCondition | compareConditionToText : element1.exactly}}</a>
+        <a class="__link" left-click-menu data-target="compareCondition_menu{{element1.id}}">{{element1.compareCondition | compareConditionToText }}</a>
         <div class="form-input __mini __number">
             <input smart-float num-type="integer" required ng-model="element1.quantity" name="firstValue">
         </div>
@@ -86,7 +86,7 @@
 </script>
 <script type="text/ng-template" id="expression-ConditionCartSubtotalLeast.html">   
         Cart subtotal is
-        <a class="__link" left-click-menu data-target="compareCondition_menu{{element1.id}}">{{element1.compareCondition | compareConditionToText : element1.exactly}}</a>
+        <a class="__link" left-click-menu data-target="compareCondition_menu{{element1.id}}">{{element1.compareCondition | compareConditionToText }}</a>
         <div class="form-input __mini">
             <input money required ng-model="element1.subTotal" name="firstValue">
         </div>
@@ -103,7 +103,7 @@
         </ul>
 </script>
 <script type="text/ng-template" id="expression-ConditionAtNumItemsInCart.html">
-        <a class="__link" left-click-menu data-target="compareCondition_menu{{element1.id}}">{{element1.compareCondition | compareConditionToText : element1.exactly}}</a>
+        <a class="__link" left-click-menu data-target="compareCondition_menu{{element1.id}}">{{element1.compareCondition | compareConditionToText }}</a>
         <div class="form-input __mini __number">
             <input smart-float num-type="integer" required ng-model="element1.numItem" name="firstValue">
         </div>
@@ -121,7 +121,7 @@
 </script>
 <script type="text/ng-template" id="expression-ConditionAtNumItemsInCategoryAreInCart.html">
 
-        <a class="__link" left-click-menu data-target="compareCondition_menu{{element1.id}}">{{element1.compareCondition | compareConditionToText : element1.exactly}}</a>
+        <a class="__link" left-click-menu data-target="compareCondition_menu{{element1.id}}">{{element1.compareCondition | compareConditionToText }}</a>
         <div class="form-input __mini __number">
             <input smart-float num-type="integer" required ng-model="element1.numItem" name="firstValue">
         </div>
@@ -141,7 +141,7 @@
 </script>
 <script type="text/ng-template" id="expression-ConditionAtNumItemsOfEntryAreInCart.html">
 
-        <a class="__link" left-click-menu data-target="compareCondition_menu{{element1.id}}">{{element1.compareCondition | compareConditionToText : element1.exactly}}</a>
+        <a class="__link" left-click-menu data-target="compareCondition_menu{{element1.id}}">{{element1.compareCondition | compareConditionToText }}</a>
         <div class="form-input __mini __number">
             <input smart-float num-type="integer" required ng-model="element1.numItem" name="firstValue">
         </div>
@@ -411,6 +411,12 @@
     <div class="form-input __mini">
         <input required class="form-control" ng-model="element1.value" />
     </div>
+    <ul class="menu __context" role="menu" id="matchString_menu{{element1.id}}">
+        <li class="menu-item" ng-click='element1.matchCondition="Contains";'>containing</li>
+        <li class="menu-item" ng-click='element1.matchCondition="NotContains";'>not containing</li>
+        <li class="menu-item" ng-click='element1.matchCondition="Matching";'>matching</li>
+        <li class="menu-item" ng-click='element1.matchCondition="NotMatching";'>not matching</li>
+    </ul>
 </script>
 <script type="text/ng-template" id="expression-ConditionGeoCountry.html">
     Browsing from country
@@ -428,6 +434,12 @@
     <div class="form-input __mini">
         <input required class="form-control" ng-model="element1.value" />
     </div>
+    <ul class="menu __context" role="menu" id="matchString_menu{{element1.id}}">
+        <li class="menu-item" ng-click='element1.matchCondition="Contains";'>containing</li>
+        <li class="menu-item" ng-click='element1.matchCondition="NotContains";'>not containing</li>
+        <li class="menu-item" ng-click='element1.matchCondition="Matching";'>matching</li>
+        <li class="menu-item" ng-click='element1.matchCondition="NotMatching";'>not matching</li>
+    </ul>
 </script>
 
 <script type="text/ng-template" id="expression-ConditionStoreSearchedPhrase.html">

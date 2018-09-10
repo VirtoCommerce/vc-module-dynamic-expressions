@@ -274,32 +274,25 @@ angular.module(moduleName, [])
         $scope.$watch('blade.currentEntity.storeIds', initialize);
     }])
     .filter('compareConditionToText', function () {
-        return function (input, exactly) {
+        return function (input) {
             var retVal;
-            if (input == null) {
-                switch (exactly) {
-                    case false: retVal = 'at least'; break;
-                    case true: retVal = 'exactly'; break;
-                }
-            }
-            else {
-                switch (input) {
-                    case 'IsMatching': retVal = 'matching'; break;
-                    case 'IsNotMatching': retVal = 'not matching'; break;
-                    case 'IsGreaterThan': retVal = 'greater than'; break;
-                    case 'IsGreaterThanOrEqual': retVal = 'greater than or equals'; break;
-                    case 'IsLessThan': retVal = 'less than'; break;
-                    case 'IsLessThanOrEqual': retVal = 'less than or equals'; break;
-                    case 'Contains': retVal = 'containing'; break;
-                    case 'NotContains': retVal = 'not containing'; break;
-                    case 'Matching': retVal = 'matching'; break;
-                    case 'NotMatching': retVal = 'not matching'; break;
-                    case 'Exactly': retVal = 'exactly'; break;
-                    case 'AtLeast': retVal = 'at least'; break;
-                    case 'Between': retVal = 'between'; break;
-                    default:
-                        retVal = input;
-                }
+
+            switch (input) {
+                case 'IsMatching': retVal = 'matching'; break;
+                case 'IsNotMatching': retVal = 'not matching'; break;
+                case 'IsGreaterThan': retVal = 'greater than'; break;
+                case 'IsGreaterThanOrEqual': retVal = 'greater than or equals'; break;
+                case 'IsLessThan': retVal = 'less than'; break;
+                case 'IsLessThanOrEqual': retVal = 'less than or equals'; break;
+                case 'Contains': retVal = 'containing'; break;
+                case 'NotContains': retVal = 'not containing'; break;
+                case 'Matching': retVal = 'matching'; break;
+                case 'NotMatching': retVal = 'not matching'; break;
+                case 'Exactly': retVal = 'exactly'; break;
+                case 'AtLeast': retVal = 'at least'; break;
+                case 'Between': retVal = 'between'; break;
+                default:
+                    retVal = input;
             }
             return retVal;
         };

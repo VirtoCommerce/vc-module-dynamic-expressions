@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using VirtoCommerce.Domain.Marketing.Model;
+using VirtoCommerce.Platform.Core.Common;
 
 namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 {
@@ -60,10 +61,10 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
         [Obsolete("Use new method instead.")]
         public static bool IsAnyLineItemExtendedTotal(this PromotionEvaluationContext context, decimal lineItemTotal, bool isExactly, string[] excludingCategoryIds, string[] excludingProductIds)
         {
-            var compareCondition = "AtLeast";
+            var compareCondition = ModuleConstants.ConditionOperation.AtLeast;
             if (isExactly)
             {
-                compareCondition = "Exactly";
+                compareCondition = ModuleConstants.ConditionOperation.Exactly;
             }
 
             return IsAnyLineItemExtendedTotalNew(context, lineItemTotal, 0, compareCondition, excludingCategoryIds, excludingProductIds);
@@ -71,22 +72,22 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
         public static bool IsAnyLineItemExtendedTotalNew(this PromotionEvaluationContext context, decimal lineItemTotal, decimal lineItemTotalSecond, string compareCondition, string[] excludingCategoryIds, string[] excludingProductIds)
         {
-            if (compareCondition == "Exactly")
+            if (compareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.Exactly))
                 return context.CartPromoEntries.Where(x => x.Price * x.Quantity == lineItemTotal)
                     .ExcludeCategories(excludingCategoryIds)
                     .ExcludeProducts(excludingProductIds)
                     .Any();
-            else if (compareCondition == "AtLeast")
+            else if (compareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.AtLeast))
                 return context.CartPromoEntries.Where(x => x.Price * x.Quantity >= lineItemTotal)
                     .ExcludeCategories(excludingCategoryIds)
                     .ExcludeProducts(excludingProductIds)
                     .Any();
-            else if (compareCondition == "IsLessThanOrEqual")
+            else if (compareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.IsLessThanOrEqual))
                 return context.CartPromoEntries.Where(x => x.Price * x.Quantity <= lineItemTotal)
                     .ExcludeCategories(excludingCategoryIds)
                     .ExcludeProducts(excludingProductIds)
                     .Any();
-            else if (compareCondition == "Between")
+            else if (compareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.Between))
                 return context.CartPromoEntries.Where(x => x.Price * x.Quantity >= lineItemTotal && x.Quantity <= lineItemTotalSecond)
                     .ExcludeCategories(excludingCategoryIds)
                     .ExcludeProducts(excludingProductIds)
@@ -102,24 +103,19 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
         [Obsolete("Use new method instead.")]
         public static bool IsItemsInStockQuantity(this PromotionEvaluationContext context, bool isExactly, int quantity)
         {
-            var compareCondition = "AtLeast";
-            if (isExactly)
-            {
-                compareCondition = "Exactly";
-            }
-
+            var compareCondition = isExactly ? ModuleConstants.ConditionOperation.Exactly : ModuleConstants.ConditionOperation.AtLeast;
             return IsItemsInStockQuantityNew(context, compareCondition, quantity, 0);
         }
 
         public static bool IsItemsInStockQuantityNew(this PromotionEvaluationContext context, string compareCondition, int quantity, int quantitySecond)
         {
-            if (compareCondition == "Exactly")
+            if (compareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.Exactly))
                 return context.PromoEntry.InStockQuantity == quantity;
-            else if (compareCondition == "AtLeast")
+            else if (compareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.AtLeast))
                 return context.PromoEntry.InStockQuantity >= quantity;
-            else if (compareCondition == "IsLessThanOrEqual")
+            else if (compareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.IsLessThanOrEqual))
                 return context.PromoEntry.InStockQuantity <= quantity;
-            else if (compareCondition == "Between")
+            else if (compareCondition.EqualsInvariant(ModuleConstants.ConditionOperation.Between))
                 return context.PromoEntry.InStockQuantity >= quantity && context.PromoEntry.InStockQuantity <= quantitySecond;
             throw new Exception("CompareCondition has incorrect value.");
         }

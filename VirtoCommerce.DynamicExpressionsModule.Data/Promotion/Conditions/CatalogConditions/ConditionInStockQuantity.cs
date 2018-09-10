@@ -6,7 +6,7 @@ using linq = System.Linq.Expressions;
 namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 {
     //InStock quantity is []
-    public class ConditionInStockQuantity : ConditionBase, IConditionExpression
+    public class ConditionInStockQuantity : DynamicExpression, IConditionExpression
     {
         public int Quantity { get; set; }
 

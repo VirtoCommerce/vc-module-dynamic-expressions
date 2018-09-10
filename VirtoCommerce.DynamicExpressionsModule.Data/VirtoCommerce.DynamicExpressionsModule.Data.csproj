@@ -64,12 +64,14 @@
     <Compile Include="Common\Conditions\GeoConditions\ConditionGeoState.cs" />
     <Compile Include="Common\Conditions\GeoConditions\ConditionGeoCountry.cs" />
     <Compile Include="Common\Conditions\GeoConditions\ConditionGeoCity.cs" />
+    <Compile Include="Common\Extensions\ExpressionExtensions.cs" />
     <Compile Include="Content\BlockContentCondition.cs" />
     <Compile Include="Common\Conditions\Browse\ConditionStoreSearchedPhrase.cs" />
     <Compile Include="Common\Conditions\GeoConditions\ConditionGeoTimeZone.cs" />
     <Compile Include="Common\Conditions\CompareConditionBase.cs" />
     <Compile Include="Common\Conditions\MatchedConditionBase.cs" />
     <Compile Include="Common\Conditions\GeoConditions\ConditionGeoZipCode.cs" />
+    <Compile Include="ModuleConstants.cs" />
     <Compile Include="Pricing\BlockPricingCondition.cs" />
     <Compile Include="Common\Conditions\UserGroupsContainsCondition.cs" />
     <Compile Include="Pricing\Conditions\TagsContainsCondition.cs" />
@@ -82,7 +84,6 @@
     <Compile Include="Promotion\Conditions\CartConditions\ConditionAtNumItemsInCart.cs" />
     <Compile Include="Promotion\Conditions\CartConditions\ConditionAtNumItemsOfCategoryAreInCart.cs" />
     <Compile Include="Promotion\Conditions\CartConditions\ConditionAtNumItemsOfEntryAreInCart.cs" />
-    <Compile Include="Promotion\Conditions\ConditionBase.cs" />
     <Compile Include="Promotion\Conditions\CartConditions\ConditionCartSubtotalLeast.cs" />
     <Compile Include="Promotion\Conditions\CatalogConditions\ConditionCategoryIs.cs" />
     <Compile Include="Promotion\Conditions\CatalogConditions\ConditionCodeContains.cs" />
