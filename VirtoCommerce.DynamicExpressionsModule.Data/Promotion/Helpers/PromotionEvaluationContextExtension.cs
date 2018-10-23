@@ -54,8 +54,12 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
         public static bool IsItemCodeContains(this PromotionEvaluationContext context, string code)
         {
-            return new ProductPromoEntry[] { context.PromoEntry }.Where(x => String.Equals(code, x.Code, StringComparison.InvariantCultureIgnoreCase)).Any();
-
+            var result = context.PromoEntry != null && !string.IsNullOrEmpty(context.PromoEntry.Code);
+            if (result)
+            {
+                result = context.PromoEntry.Code.IndexOf(code, StringComparison.OrdinalIgnoreCase) != -1;
+            }
+            return result;
         }
 
         [Obsolete("Use new method instead.")]
