@@ -167,6 +167,14 @@ angular.module(moduleName, [])
                 id: 'RewardPaymentGetOfRel',
                 displayName: 'Get [] % off payment method [] not to exceed $ []'
             });
+            dynamicExpressionService.registerExpression({
+                id: 'RewardItemForEveryNumInGetOfRel',
+                displayName: 'For [] in every [] items of entry [] get [] % off no more than [] not to exceed $ []'
+            });
+            dynamicExpressionService.registerExpression({
+                id: 'RewardItemForEveryNumOtherItemInGetOfRel',
+                displayName: 'For [] items of entry [] in every [] items of entry [] get [] % off no more than [] not to exceed $ []'
+            });
 
             //Register COMMON expressions
             var groupNames = ['Browse behavior', 'Shopper profile', 'Shopping cart', 'Geo location'];
