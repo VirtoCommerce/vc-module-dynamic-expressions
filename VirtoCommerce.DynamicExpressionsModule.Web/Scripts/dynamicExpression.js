@@ -169,11 +169,11 @@ angular.module(moduleName, [])
             });
             dynamicExpressionService.registerExpression({
                 id: 'RewardItemForEveryNumInGetOfRel',
-                displayName: 'For [] in every [] items of entry [] get [] % off no more than [] not to exceed $ []'
+                displayName: 'For [] in every [] items of entry [] get [] % off…'
             });
             dynamicExpressionService.registerExpression({
                 id: 'RewardItemForEveryNumOtherItemInGetOfRel',
-                displayName: 'For [] items of entry [] in every [] items of entry [] get [] % off no more than [] not to exceed $ []'
+                displayName: 'For [] items of entry [] in every [] items of entry [] get [] % off…'
             });
 
             //Register COMMON expressions
