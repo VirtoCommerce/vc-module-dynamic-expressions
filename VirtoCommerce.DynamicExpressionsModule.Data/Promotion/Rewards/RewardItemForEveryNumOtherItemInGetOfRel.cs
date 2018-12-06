@@ -9,7 +9,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
         #region IRewardExpression Members
 
-        public new PromotionReward[] GetRewards()
+        public override PromotionReward[] GetRewards()
         {
             return new PromotionReward[] {
                 new CatalogItemAmountReward
