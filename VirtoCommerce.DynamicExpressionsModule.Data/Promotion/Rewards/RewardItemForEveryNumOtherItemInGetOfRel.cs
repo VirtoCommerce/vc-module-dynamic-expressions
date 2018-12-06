@@ -9,21 +9,10 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
         #region IRewardExpression Members
 
-        public override PromotionReward[] GetRewards()
+        protected override void FillAmountReward(CatalogItemAmountReward reward)
         {
-            return new PromotionReward[] {
-                new CatalogItemAmountReward
-                {
-                    Amount = Amount,
-                    AmountType = RewardAmountType.Relative,
-                    Quantity = ItemLimit,
-                    ForNthQuantity = ForNthQuantity,
-                    InEveryNthQuantity = InEveryNthQuantity,
-                    ProductId = Product?.ProductId,
-                    MaxLimit = MaxLimit,
-                    ConditionalProductId = ConditionalProduct?.ProductId,
-                }
-            };
+            base.FillAmountReward(reward);
+            reward.ConditionalProductId = ConditionalProduct?.ProductId;
         }
 
         #endregion
