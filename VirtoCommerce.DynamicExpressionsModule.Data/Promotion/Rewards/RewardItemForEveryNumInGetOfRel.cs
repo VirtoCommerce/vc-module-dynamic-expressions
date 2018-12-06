@@ -15,22 +15,19 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
         #region IRewardExpression Members
 
-        public PromotionReward[] GetRewards()
+        public virtual PromotionReward[] GetRewards()
         {
-            var reward = new CatalogItemAmountReward();
-            FillAmountReward(reward);
-            return new PromotionReward[] { reward };
-        }
-
-        protected virtual void FillAmountReward(CatalogItemAmountReward reward)
-        {
-            reward.Amount = Amount;
-            reward.AmountType = RewardAmountType.Relative;
-            reward.Quantity = ItemLimit;
-            reward.ForNthQuantity = ForNthQuantity;
-            reward.InEveryNthQuantity = InEveryNthQuantity;
-            reward.ProductId = Product?.ProductId;
-            reward.MaxLimit = MaxLimit;
+            var retVal = new CatalogItemAmountReward
+            {
+                Amount = Amount,
+                AmountType = RewardAmountType.Relative,
+                Quantity = ItemLimit,
+                ForNthQuantity = ForNthQuantity,
+                InEveryNthQuantity = InEveryNthQuantity,
+                ProductId = Product?.ProductId,
+                MaxLimit = MaxLimit,
+            };
+            return new PromotionReward[] { retVal };
         }
 
         #endregion

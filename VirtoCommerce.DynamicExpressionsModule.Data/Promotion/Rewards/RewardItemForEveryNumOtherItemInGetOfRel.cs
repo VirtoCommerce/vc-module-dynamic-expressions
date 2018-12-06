@@ -1,3 +1,4 @@
+using System.Linq;
 using VirtoCommerce.Domain.Marketing.Model;
 
 namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
@@ -9,10 +10,18 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
         #region IRewardExpression Members
 
-        protected override void FillAmountReward(CatalogItemAmountReward reward)
+        public override PromotionReward[] GetRewards()
         {
-            base.FillAmountReward(reward);
-            reward.ConditionalProductId = ConditionalProduct?.ProductId;
+            var result = base.GetRewards();
+            foreach (var reward in result)
+            {
+                var amountReward = reward as CatalogItemAmountReward;
+                if (amountReward != null)
+                {
+                    amountReward.ConditionalProductId = ConditionalProduct?.ProductId;
+                }
+            }
+            return result;
         }
 
         #endregion
