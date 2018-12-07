@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Microsoft.Practices.Unity;
 using VirtoCommerce.Domain.Common;
 using VirtoCommerce.Domain.Marketing.Model;
@@ -96,7 +96,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Web
                     new RewardCartGetOfAbsSubtotal(), new RewardCartGetOfRelSubtotal(), new RewardItemGetFreeNumItemOfProduct(), new RewardItemGetOfAbs(),
                     new RewardItemGetOfAbsForNum(), new RewardItemGetOfRel(), new RewardItemGetOfRelForNum(),
                     new RewardItemGiftNumItem(), new RewardShippingGetOfAbsShippingMethod(), new RewardShippingGetOfRelShippingMethod(), new RewardPaymentGetOfAbs(),
-                    new RewardPaymentGetOfRel()
+                    new RewardPaymentGetOfRel(), new RewardItemForEveryNumInGetOfRel(), new RewardItemForEveryNumOtherItemInGetOfRel(),
                 }.ToList()
             };
 
