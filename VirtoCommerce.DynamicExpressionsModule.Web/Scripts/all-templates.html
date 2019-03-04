@@ -31,8 +31,14 @@
     </ul>
 </script>
 <script type="text/ng-template" id="expression-ConditionEntryIs.html">
-    Product is
-    <a class="__link" ng-click="openItemSelectWizard(element1)">{{element1.productName ? element1.productName : 'select product' }}</a>
+    <span ng-if="element1.productIds">
+        Product is
+        <a class="__link" ng-click="openItemSelectWizard(element1, true)">{{element1.productIds.length}}</a>
+    </span>
+    <span ng-if="!element1.productIds && element1.productId">
+        Product is
+        <a class="__link" ng-click="openItemSelectWizard(element1, true)">{{element1.productName ? element1.productName : 'select product' }}</a>
+    </span>
 </script>
 <script type="text/ng-template" id="expression-ConditionCurrencyIs.html">
     <span ng-controller="virtoCommerce.marketingModule.promotionConditionCurrencyIsController">

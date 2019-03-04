@@ -70,13 +70,15 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
         #region ConditionEntryIs
         private static IEnumerable<object[]> ConditionEntryIsInputData()
         {
-            string productId = Guid.NewGuid().ToString();
+            string productId1 = Guid.NewGuid().ToString();
+            string productId2 = Guid.NewGuid().ToString();
 
             IEvaluationContext context = new PromotionEvaluationContext
             {
                 PromoEntries = new List<ProductPromoEntry>
                 {
-                    new ProductPromoEntry { ProductId = productId },
+                    new ProductPromoEntry { ProductId = productId1 },
+                    new ProductPromoEntry { ProductId = productId2 },
                     new ProductPromoEntry { ProductId = Guid.NewGuid().ToString() },
                     new ProductPromoEntry { ProductId = Guid.NewGuid().ToString() }
                 }
@@ -84,13 +86,13 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
 
             yield return new object[]
             {
-                new IConditionExpression[] { new ConditionEntryIs { ProductId = productId } },
+                new IConditionExpression[] { new ConditionEntryIs { ProductId = productId1 } },
                 new IRewardExpression[] { new RewardItemGetOfRel() },
                 context,
                 new DynamicPromotionEvaluationResult
                 {
                     ValidCount = 1,
-                    InvalidCount = 2
+                    InvalidCount = 3
                 }
             };
 
@@ -102,7 +104,43 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
                 new DynamicPromotionEvaluationResult
                 {
                     ValidCount = 0,
+                    InvalidCount = 4
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionEntryIs { ProductIds = new[] { productId1 } } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 1,
                     InvalidCount = 3
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionEntryIs { ProductIds = new[] { productId1, productId2 } } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 2,
+                    InvalidCount = 2
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionEntryIs { ProductIds = new[] { productId1, productId2, Guid.NewGuid().ToString() } } },
+                new IRewardExpression[] { new RewardItemGetOfRel() },
+                context,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 2,
+                    InvalidCount = 2
                 }
             };
         }
