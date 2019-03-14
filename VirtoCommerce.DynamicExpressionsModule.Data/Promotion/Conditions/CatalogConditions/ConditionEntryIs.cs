@@ -1,8 +1,9 @@
 using System;
-using System.Linq;
 using VirtoCommerce.Domain.Common;
 using VirtoCommerce.Domain.Marketing.Model;
 using linq = System.Linq.Expressions;
+using VirtoCommerce.DynamicExpressionsModule.Data.Common.Extensions;
+
 namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 {
     //Product is []
@@ -27,7 +28,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
             if (ProductIds != null)
             {
                 var methodInfo = typeof(PromotionEvaluationContextExtension).GetMethod("IsItemInProducts");
-                methodCall = linq.Expression.Call(null, methodInfo, castOp, linq.Expression.NewArrayInit(typeof(string), ProductIds.Select(x => linq.Expression.Constant(x))));
+                methodCall = linq.Expression.Call(null, methodInfo, castOp, ProductIds.GetNewArrayExpression());
             }
             else if (!string.IsNullOrEmpty(ProductId))
             {
