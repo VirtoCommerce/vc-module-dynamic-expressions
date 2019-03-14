@@ -32,13 +32,13 @@
 </script>
 <script type="text/ng-template" id="expression-ConditionEntryIs.html">
     Products selected
-    <a class="__link" ng-click="openItemSelectWizard(element1, true)">
+    <a ng-if="element1.productIds" class="__link" ng-click="openItemSelectWizard(element1, true)">
         {{
             element1.productIds.length > 1
                 ? element1.productIds.length
                 : element1.productNames && element1.productNames.length
                     ? element1.productNames[0]
-                    : ''
+                    : 'select product'
         }}
     </a>
     <a ng-if="!element1.productIds && element1.productId" class="__link" ng-click="openItemSelectWizard(element1)">{{element1.productName ? element1.productName : 'select product' }}</a>
