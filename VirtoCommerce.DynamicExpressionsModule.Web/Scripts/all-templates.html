@@ -35,7 +35,7 @@
     <a ng-if="element1.productIds" class="__link" ng-click="openItemSelectWizard(element1, true)">
         {{
             element1.productIds.length > 1
-                ? element1.productIds.length
+                ? 'show ' + element1.productIds.length + ' items'
                 : element1.productNames && element1.productNames.length
                     ? element1.productNames[0]
                     : 'select product'

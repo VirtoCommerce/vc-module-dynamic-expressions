@@ -22,6 +22,11 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
         /// <returns></returns>
         public linq.Expression<Func<IEvaluationContext, bool>> GetConditionExpression()
         {
+            if (ProductId == null && ProductIds == null)
+            {
+                throw new ArgumentException($"{nameof(ProductId)} and {nameof(ProductIds)} cannot be null.");
+            }
+
             var paramX = linq.Expression.Parameter(typeof(IEvaluationContext), "x");
             var castOp = linq.Expression.MakeUnary(linq.ExpressionType.Convert, paramX, typeof(PromotionEvaluationContext));
             linq.MethodCallExpression methodCall = null;
@@ -30,7 +35,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
                 var methodInfo = typeof(PromotionEvaluationContextExtension).GetMethod("IsItemInProducts");
                 methodCall = linq.Expression.Call(null, methodInfo, castOp, ProductIds.GetNewArrayExpression());
             }
-            else if (!string.IsNullOrEmpty(ProductId))
+            else
             {
                 var methodInfo = typeof(PromotionEvaluationContextExtension).GetMethod("IsItemInProduct");
                 methodCall = linq.Expression.Call(null, methodInfo, castOp, linq.Expression.Constant(ProductId));
