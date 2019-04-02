@@ -2,6 +2,8 @@ using System;
 using VirtoCommerce.Domain.Common;
 using VirtoCommerce.Domain.Marketing.Model;
 using linq = System.Linq.Expressions;
+using VirtoCommerce.DynamicExpressionsModule.Data.Common.Extensions;
+
 namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 {
     //Product is []
@@ -10,6 +12,8 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
 
         public string ProductId { get; set; }
         public string ProductName { get; set; }
+        public string[] ProductIds { get; set; }
+        public string[] ProductNames { get; set; }
 
         #region IConditionExpression Members
         /// <summary>
@@ -18,11 +22,25 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
         /// <returns></returns>
         public linq.Expression<Func<IEvaluationContext, bool>> GetConditionExpression()
         {
+            if (ProductId == null && ProductIds == null)
+            {
+                throw new ArgumentException($"{nameof(ProductId)} and {nameof(ProductIds)} cannot be null.");
+            }
+
             var paramX = linq.Expression.Parameter(typeof(IEvaluationContext), "x");
             var castOp = linq.Expression.MakeUnary(linq.ExpressionType.Convert, paramX, typeof(PromotionEvaluationContext));
-            var methodInfo = typeof(PromotionEvaluationContextExtension).GetMethod("IsItemInProduct");
+            linq.MethodCallExpression methodCall = null;
+            if (ProductIds != null)
+            {
+                var methodInfo = typeof(PromotionEvaluationContextExtension).GetMethod("IsItemInProducts");
+                methodCall = linq.Expression.Call(null, methodInfo, castOp, ProductIds.GetNewArrayExpression());
+            }
+            else
+            {
+                var methodInfo = typeof(PromotionEvaluationContextExtension).GetMethod("IsItemInProduct");
+                methodCall = linq.Expression.Call(null, methodInfo, castOp, linq.Expression.Constant(ProductId));
+            }
 
-            var methodCall = linq.Expression.Call(null, methodInfo, castOp, linq.Expression.Constant(ProductId));
             var retVal = linq.Expression.Lambda<Func<IEvaluationContext, bool>>(methodCall, paramX);
 
             return retVal;
