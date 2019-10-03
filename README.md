@@ -16,6 +16,10 @@ Key features:
 
 [Add Dynamic Expressions to Marketing Dynamic Content](/docs/add-expressions-to-dynamic-content.md)
 
+[Add Dynamic Expressions To Promotions](/docs/add-dynamic-expressions-to-promotions.md)
+
+[Compose Dynamic Conditions](/docs/compose-dynamic-conditions.md)
+
 # Documentation
 User guide:
 * add dynamic expressions to marketing <a href="https://virtocommerce.com/docs/vc2userguide/marketing/dynamic-content" target="_blank">Dynamic content</a>
