@@ -16,7 +16,7 @@ Key features:
 
 [Add Dynamic Expressions to Marketing Dynamic Content](/docs/add-expressions-to-dynamic-content.md)
 
-[Add Dynamic Expressions To Promotions](/docs/add-dynamic-expressions-to-promotions.md)
+[Add Dynamic Expressions To Promotions](/docs/add-dynamic-expression-to-promotions.md)
 
 [Compose Dynamic Conditions](/docs/compose-dynamic-conditions.md)
 
