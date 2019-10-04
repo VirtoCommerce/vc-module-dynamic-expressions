@@ -20,25 +20,22 @@ Key features:
 
 [Compose Dynamic Conditions](/docs/compose-dynamic-conditions.md)
 
-# Documentation
-User guide:
-* add dynamic expressions to marketing <a href="https://virtocommerce.com/docs/vc2userguide/marketing/dynamic-content" target="_blank">Dynamic content</a>
-* add dynamic expressions to marketing <a href="https://virtocommerce.com/docs/vc2userguide/marketing/promotions" target="_blank">Promotions</a>
+## Documentation
 
-Developer guide: <a href="https://virtocommerce.com/docs/vc2devguide/working-with-platform-manager/extending-functionality/composing-dynamic-conditions" target="_blank">composing dynamic conditions</a>
+https://github.com/VirtoCommerce/vc-module-marketing
 
+## Installation
 
-# Installation
 Installing the module:
 * Automatically: in VC Manager go to Configuration -> Modules -> Virto Commerce dynamic expression library module -> Install
 * Manually: download module zip package from https://github.com/VirtoCommerce/vc-module-dynamic-expressions/releases. In VC Manager go to Configuration -> Modules -> Advanced -> upload module package -> Install.
 
+## Available resources
 
-# Available resources
 * Module related service implementations as a <a href="https://www.nuget.org/packages/VirtoCommerce.DynamicExpressionsModule.Data" target="_blank">NuGet package</a>
 
+## License
 
-# License
 Copyright (c) Virto Solutions LTD.  All rights reserved.
 
 Licensed under the Virto Commerce Open Software License (the "License"); you
