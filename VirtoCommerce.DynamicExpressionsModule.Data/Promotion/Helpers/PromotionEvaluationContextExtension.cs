@@ -43,6 +43,13 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
             return retVal;
         }
 
+        public static bool DoesCartHaveRecurringItems(this PromotionEvaluationContext context)
+        {
+            var retVal = context.CartPromoEntries.Any(x => x.IsRecurring) || context.IsRecurring;
+
+            return retVal;
+        }
+
         public static bool IsItemInCategory(this PromotionEvaluationContext context, string categoryId, string[] excludingCategoryIds, string[] excludingProductIds)
         {
             var result = new ProductPromoEntry[] { context.PromoEntry }.InCategories(new[] { categoryId })

@@ -86,7 +86,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Web
                 AvailableChildren = new DynamicExpression[]
                 {
                     new ConditionCartSubtotalLeast(), new ConditionAtNumItemsInCart(),
-                    new ConditionAtNumItemsInCategoryAreInCart(), new ConditionAtNumItemsOfEntryAreInCart()
+                    new ConditionAtNumItemsInCategoryAreInCart(), new ConditionAtNumItemsOfEntryAreInCart(), new ConditionHasRecurringItems()
                 }.ToList()
             };
             var rewardBlock = new RewardBlock
@@ -97,6 +97,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Web
                     new RewardItemGetOfAbsForNum(), new RewardItemGetOfRel(), new RewardItemGetOfRelForNum(),
                     new RewardItemGiftNumItem(), new RewardShippingGetOfAbsShippingMethod(), new RewardShippingGetOfRelShippingMethod(), new RewardPaymentGetOfAbs(),
                     new RewardPaymentGetOfRel(), new RewardItemForEveryNumInGetOfRel(), new RewardItemForEveryNumOtherItemInGetOfRel(),
+                    new RewardRecurringItemGetOfRel(),
                 }.ToList()
             };
 
