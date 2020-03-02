@@ -1,13 +1,13 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using VirtoCommerce.Domain.Common;
 using VirtoCommerce.Domain.Marketing.Model;
 using VirtoCommerce.DynamicExpressionsModule.Data.Promotion;
 
 namespace VirtoCommerce.DynamicExpressionsModule.Test
 {
-    public class EvaluationTestDataGenerator
+    public static class EvaluationTestDataGenerator
     {
         public static IEnumerable<object[]> GetConditions()
         {
@@ -17,7 +17,8 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
                 ConditionCurrencyIsInputData(),
                 ConditionCodeContainsInputData(),
                 ConditionCategoryIsInputData(),
-                ConditionInStockQuantityInputData()
+                ConditionInStockQuantityInputData(),
+                ConditionHasRecurringItemsInputData(),
             };
 
             foreach (var data in inputDataCollection.SelectMany(d => d))
@@ -495,5 +496,113 @@ namespace VirtoCommerce.DynamicExpressionsModule.Test
             };
         }
         #endregion
+
+        #region ConditionHasRecurringItems
+        private static IEnumerable<object[]> ConditionHasRecurringItemsInputData()
+        {
+            string productId = Guid.NewGuid().ToString();
+
+            IEvaluationContext contextWithRecurringCartPromoEntry = new PromotionEvaluationContext
+            {
+                PromoEntries = new List<ProductPromoEntry>
+                {
+                    new ProductPromoEntry
+                    {
+                        Code = productId,
+                    }
+                },
+                CartPromoEntries = new List<ProductPromoEntry>
+                {
+                    new ProductPromoEntry { Code = productId, IsRecurring = true },
+                },
+            };
+
+            IEvaluationContext contextWithRecurringContext = new PromotionEvaluationContext
+            {
+                PromoEntries = new List<ProductPromoEntry>
+                {
+                    new ProductPromoEntry
+                    {
+                        Code = productId,
+                    }
+                },
+                IsRecurring = true,
+            };
+
+            IEvaluationContext contextWithoutRecurringAndCartPromoEntries = new PromotionEvaluationContext
+            {
+                PromoEntries = new List<ProductPromoEntry>
+                {
+                    new ProductPromoEntry
+                    {
+                        Code = productId,
+                    }
+                },
+            };
+
+            IEvaluationContext contextWithoutRecurringAndCartPromoEntryWithoutRecurring = new PromotionEvaluationContext
+            {
+                PromoEntries = new List<ProductPromoEntry>
+                {
+                    new ProductPromoEntry
+                    {
+                        Code = productId,
+                    }
+                },
+                CartPromoEntries = new List<ProductPromoEntry>
+                {
+                    new ProductPromoEntry { Code = productId, IsRecurring = false },
+                }
+            };
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionHasRecurringItems() },
+                new IRewardExpression[] { new RewardRecurringItemGetOfRel() },
+                contextWithRecurringCartPromoEntry,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 1,
+                    InvalidCount = 0
+                }
+            };
+
+            yield return new object[]
+{
+                new IConditionExpression[] { new ConditionHasRecurringItems() },
+                new IRewardExpression[] { new RewardRecurringItemGetOfRel() },
+                contextWithRecurringContext,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 1,
+                    InvalidCount = 0
+                }
+};
+
+            yield return new object[]
+            {
+                new IConditionExpression[] { new ConditionHasRecurringItems()},
+                new IRewardExpression[] { new RewardRecurringItemGetOfRel() },
+                contextWithoutRecurringAndCartPromoEntries,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 0,
+                    InvalidCount = 1
+                }
+            };
+
+            yield return new object[]
+{
+                new IConditionExpression[] { new ConditionHasRecurringItems()},
+                new IRewardExpression[] { new RewardRecurringItemGetOfRel() },
+                contextWithoutRecurringAndCartPromoEntryWithoutRecurring,
+                new DynamicPromotionEvaluationResult
+                {
+                    ValidCount = 0,
+                    InvalidCount = 1
+                }
+};
+        }
+        #endregion ConditionHasRecurringItems
     }
 }
