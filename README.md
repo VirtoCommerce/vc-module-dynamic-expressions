@@ -1,6 +1,5 @@
-# VirtoCommerce.DynamicExpressions
 
-## Overview
+# Overview
 
 VirtoCommerce.DynamicExpressions module enables building complex dynamic expressions while using user-friendly management UI. Includes expressions for marketing (promotions and content publishing) and pricing dynamic condition builders.
 
@@ -8,31 +7,28 @@ Sometimes there is a need to give an end-user a way of composing conditions unde
 
 The most common way to build condition expressions is by using a visual UI. That way the user builds the condition expression as a regular sentence. While reading a regular sentence it is easy to understand the specific circumstances the result will yield: object returned. 
 
-Key features:
+## Key features:
 
-* extendible expression list (create and use custom expressions from your own module).
-
-![Dynamic expression management UI](https://cloud.githubusercontent.com/assets/5801549/15645509/936e75aa-2661-11e6-9b73-6786905e4fa6.png)
-
-[Add Dynamic Expressions to Marketing Dynamic Content](/docs/add-expressions-to-dynamic-content.md)
-
-[Add Dynamic Expressions To Promotions](/docs/add-dynamic-expression-to-promotions.md)
-
-[Compose Dynamic Conditions](/docs/compose-dynamic-conditions.md)
+* Extendible expression list;
+* Create and use custom expressions from your own module.
 
 ## Documentation
 
-https://github.com/VirtoCommerce/vc-module-marketing
-
-## Installation
-
-Installing the module:
-* Automatically: in VC Manager go to Configuration -> Modules -> Virto Commerce dynamic expression library module -> Install
-* Manually: download module zip package from https://github.com/VirtoCommerce/vc-module-dynamic-expressions/releases. In VC Manager go to Configuration -> Modules -> Advanced -> upload module package -> Install.
+* https://github.com/VirtoCommerce/vc-module-marketing
+* [Dynamic expressions module document](/docs/index.md)
+* [View on GitHub](https://github.com/VirtoCommerce/vc-module-dynamic-expressions)
 
 ## Available resources
 
 * Module related service implementations as a <a href="https://www.nuget.org/packages/VirtoCommerce.DynamicExpressionsModule.Data" target="_blank">NuGet package</a>
+
+## References
+
+* Deploy: https://virtocommerce.com/docs/latest/developer-guide/deploy-module-from-source-code/
+* Installation: https://www.virtocommerce.com/docs/latest/user-guide/modules/
+* Home: https://virtocommerce.com
+* Community: https://www.virtocommerce.org
+* [Download Latest Release](https://github.com/VirtoCommerce/vc-module-dynamic-expressions/releases/)
 
 ## License
 
