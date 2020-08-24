@@ -15,7 +15,7 @@ The most common way to build condition expressions is by using a visual UI. That
 ## Documentation
 
 * https://github.com/VirtoCommerce/vc-module-marketing
-* [Dynamic expressions module document](/docs/index.md)
+* [Dynamic Expressions Module Document](/docs/index.md)
 * [View on GitHub](https://github.com/VirtoCommerce/vc-module-dynamic-expressions)
 
 ## Available resources
