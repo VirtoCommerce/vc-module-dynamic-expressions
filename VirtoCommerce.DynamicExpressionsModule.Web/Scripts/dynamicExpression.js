@@ -107,6 +107,10 @@ angular.module(moduleName, [])
                 displayName: '[] [] items of entry are in shopping cart'
             });
             dynamicExpressionService.registerExpression({
+                id: 'ConditionHasRecurringItems',
+                displayName: 'Has Recurring Items'
+            });
+            dynamicExpressionService.registerExpression({
                 id: 'RewardBlock',
                 newChildLabel: '+ add effect',
                 getValidationError: function () {
@@ -138,7 +142,10 @@ angular.module(moduleName, [])
                 id: 'RewardItemGetOfRel',
                 displayName: 'Get [] % off [] not to exceed $ []'
             });
-
+            dynamicExpressionService.registerExpression({
+                id: 'RewardRecurringItemGetOfRel',
+                displayName: 'Get [] % off recurring [] not to exceed $ []'
+            });
             dynamicExpressionService.registerExpression({
                 id: 'RewardItemGetOfAbsForNum',
                 displayName: 'Get $[] off [] items of entry []'

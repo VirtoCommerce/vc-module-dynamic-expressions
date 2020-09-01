@@ -45,11 +45,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="VirtoCommerce.Domain, Version=2.25.17.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VirtoCommerce.Domain.2.25.17\lib\net461\VirtoCommerce.Domain.dll</HintPath>
+    <Reference Include="VirtoCommerce.Domain, Version=2.25.33.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VirtoCommerce.Domain.2.25.33\lib\net461\VirtoCommerce.Domain.dll</HintPath>
     </Reference>
-    <Reference Include="VirtoCommerce.Platform.Core, Version=2.13.31.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VirtoCommerce.Platform.Core.2.13.31\lib\net461\VirtoCommerce.Platform.Core.dll</HintPath>
+    <Reference Include="VirtoCommerce.Platform.Core, Version=2.13.42.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VirtoCommerce.Platform.Core.2.13.42\lib\net461\VirtoCommerce.Platform.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +91,7 @@
     <Compile Include="Promotion\Conditions\CatalogConditions\ConditionEntryIs.cs" />
     <Compile Include="Promotion\Conditions\CustomerConditions\ConditionIsEveryone.cs" />
     <Compile Include="Promotion\Conditions\CustomerConditions\ConditionIsFirstTimeBuyer.cs" />
+    <Compile Include="Promotion\Conditions\CartConditions\ConditionHasRecurringItems.cs" />
     <Compile Include="Promotion\Conditions\CustomerConditions\ConditionIsRegisteredUser.cs" />
     <Compile Include="Promotion\Helpers\PromotionEvaluationContextExtension.cs" />
     <Compile Include="Promotion\Rewards\BlockReward.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Promotion\Rewards\RewardItemGetOfRelForNum.cs" />
     <Compile Include="Promotion\Rewards\RewardItemGiftNumItem.cs" />
     <Compile Include="Promotion\Rewards\RewardPaymentGetOfAbs.cs" />
+    <Compile Include="Promotion\Rewards\RewardRecurringItemGetOfRel.cs" />
     <Compile Include="Promotion\Rewards\RewardShippingGetOfAbsShippingMethod.cs" />
     <Compile Include="Promotion\Rewards\RewardPaymentGetOfRel.cs" />
     <Compile Include="Promotion\Rewards\RewardShippingGetOfRelShippingMethod.cs" />
