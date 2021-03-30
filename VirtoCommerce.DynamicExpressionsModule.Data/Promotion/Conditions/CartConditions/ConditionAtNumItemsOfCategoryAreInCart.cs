@@ -36,7 +36,7 @@ namespace VirtoCommerce.DynamicExpressionsModule.Data.Promotion
             var rightOperandExpression = linq.Expression.Constant(NumItem);
             var rightSecondOperandExpression = linq.Expression.Constant(NumItemSecond);
 
-            var result = linq.Expression.Lambda<Func<IEvaluationContext, bool>>(GetConditionExpression(rightOperandExpression, rightOperandExpression, rightSecondOperandExpression), paramX);
+            var result = linq.Expression.Lambda<Func<IEvaluationContext, bool>>(GetConditionExpression(leftOperandExpression, rightOperandExpression, rightSecondOperandExpression), paramX);
             return result;
         }
 
